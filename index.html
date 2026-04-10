@@ -1777,6 +1777,7 @@
       initMobileMenu();
       initBackToTop();
       initSmoothScroll();
+      document.getElementById('themeToggle').addEventListener('click', toggleTheme);
       if (window.location.hash) {
         var target = document.querySelector(window.location.hash);
         if (target) setTimeout(function() { target.scrollIntoView({behavior: 'smooth'}); }, 100);
