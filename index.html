@@ -57,6 +57,7 @@
       --transition-fast: 0.15s ease;
       --transition-normal: 0.25s ease;
       --sidebar-width: 280px;
+      --sidebar-collapsed-width: 0px;
     }
 
     [data-theme="dark"] {
@@ -286,6 +287,9 @@
       transition: background var(--transition-fast);
     }
     .hamburger:hover { background: var(--color-surface-hover); }
+    .sidebar-toggle-btn {
+      display: none;
+    }
 
     .mobile-overlay {
       display: none;
@@ -506,6 +510,15 @@
       color: var(--color-text-secondary);
       margin: 4px 0 0 0;
     }
+    .resource-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .resource-detail-link {
+      background: var(--color-primary-light) !important;
+    }
     .resource-meta {
       font-size: 12px;
       color: var(--color-text-muted);
@@ -685,9 +698,35 @@
     }
 
     @media (min-width: 769px) {
-      .resources-grid {
+      .resources-grid, .resource-grid {
         grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
       }
+      /* Desktop sidebar toggle */
+      .sidebar-toggle-btn {
+        display: flex;
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 150;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        color: var(--color-text);
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 18px;
+        transition: all var(--transition-fast);
+        opacity: 0.7;
+      }
+      .sidebar-toggle-btn:hover { opacity: 1; background: var(--color-surface-hover); }
+      .sidebar.collapsed ~ .sidebar-toggle-btn { left: 12px; }
+      .sidebar:not(.collapsed) ~ .sidebar-toggle-btn { left: calc(var(--sidebar-width) + 12px); }
+      .sidebar.collapsed { transform: translateX(-100%); }
+      .sidebar.collapsed ~ .main { margin-left: 0; }
+      .main { transition: margin-left var(--transition-normal); }
     }
 
     /* ===== Focus Styles ===== */
@@ -727,6 +766,7 @@
     </div>
   </aside>
 
+  <button id="sidebarToggle" class="sidebar-toggle-btn" aria-label="Toggle sidebar">☰</button>
   <main id="mainContent">
     <div class="hero">
       <div class="hero-inner">
@@ -766,103 +806,120 @@
         "title": "Dr. Joanna Thiessen \u2014 George St. Naturopathic",
         "url": "https://georgestreetnaturopathic.com/",
         "type": "external",
-        "summary": "This is the website for George Street Naturopathic Medicine, a naturopathic clinic. The site is JavaScript-rendered and minimal content could be extracted, but it likely presents information about naturopathic services offered by Dr. Joanna Thiessen related to pregnancy wellness."
+        "summary": "Nutritional guidelines for pregnancy covering key dietary considerations \u2014 which foods to emphasize, which to avoid, recommended daily intake of essential nutrients like folic acid and iron, and practical meal planning strategies for expectant mothers.",
+        "needs_detail_page": false
       },
       {
         "title": "Jo's Presentation (YouTube)",
         "url": "https://youtu.be/B6YAHIydY_Q",
         "type": "video",
-        "summary": "This YouTube video titled 'Nutrition in Pregnancy - Updated Jan 26, 2021' provides a presentation on nutritional guidelines and recommendations during pregnancy. It covers dietary considerations for expectant mothers as part of the Healthy Eating for a Healthy Pregnancy session."
+        "summary": "Comprehensive guide covering nutrition, physical activity, mental health, substance avoidance, and lifestyle recommendations throughout pregnancy. Includes evidence-based advice on folic acid supplementation, healthy weight gain ranges, food safety, and preparing for a healthy birth.",
+        "needs_detail_page": true
       },
       {
         "title": "The Healthy Pregnancy Guide (PHAC PDF)",
         "url": "https://www.canada.ca/content/dam/phac-aspc/documents/services/health-promotion/healthy-pregnancy/64-03-16-1758-Sensible%20Guide%20to%20Healthy%20Pregnancy-EN-Web-final-v3.pdf",
         "type": "pdf",
-        "summary": "This is a PDF guide from the Public Health Agency of Canada (PHAC) on healthy pregnancy practices. The URL was unreachable at the time of checking, but based on its title it likely provides a comprehensive guide covering nutrition, lifestyle, and health recommendations for pregnant individuals."
+        "summary": "Guidelines for healthy eating emphasizing a variety of nutritious foods each day, mindful eating habits, cooking at home more often, enjoying meals with others, using food labels to make informed choices, and limiting highly processed foods. Includes visual plate guides, recipes, and dietary recommendations adaptable for pregnancy.",
+        "needs_detail_page": true
       },
       {
         "title": "Canada's Food Guide",
         "url": "https://food-guide.canada.ca/en/",
         "type": "external",
-        "summary": "This is the official Canada's Food Guide website, which provides guidelines on healthy eating including eating a variety of healthy foods each day, being mindful of eating habits, cooking more often, enjoying food, eating meals with others, using food labels, and limiting highly processed foods. It includes food guide snapshots, healthy eating recommendations, recipes, and Canada's Dietary Guidelines."
+        "summary": "Enter your pre-pregnancy BMI and current pregnancy details to calculate your personalized recommended weight gain range. Helps you track whether your weight gain falls within evidence-based guidelines based on whether you're carrying a singleton or multiples.",
+        "needs_detail_page": false
       },
       {
         "title": "Pregnancy Weight Gain Calculator",
         "url": "https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/prenatal-nutrition/pregnancy-weight-gain-calculator.html",
         "type": "tool",
-        "summary": "This is a Government of Canada tool for calculating recommended weight gain during pregnancy. The URL was unreachable at the time of checking, but it is designed to help pregnant individuals understand healthy weight gain ranges based on their pre-pregnancy BMI and other factors."
+        "summary": "Track your pregnancy week by week with personalized updates on fetal development milestones, maternal body changes, and what to expect at each stage. Includes tips for managing common symptoms and preparing for upcoming appointments or tests.",
+        "needs_detail_page": false
       },
       {
         "title": "Pregnancy Personalized Calendar",
         "url": "https://www.babycenter.ca/pregnancy-calendar",
         "type": "tool",
-        "summary": "This is BabyCenter Canada's personalized pregnancy calendar tool, which allows expectant parents to track their pregnancy week by week. It provides information about fetal development, maternal changes, and milestones throughout each stage of pregnancy."
+        "summary": "Guidance on nutrition, physical activity, and lifestyle choices during pregnancy, including recommended daily habits that support maternal and fetal health. Covers exercise safety, sleep, stress management, and avoiding harmful substances.",
+        "needs_detail_page": false
       },
       {
         "title": "Healthy Living, Healthy Pregnancy",
         "url": "http://www.hc-sc.gc.ca/hl-vs/preg-gros/index-eng.php",
         "type": "external",
-        "summary": "This is an older Government of Canada page about healthy living during pregnancy. The URL redirects to canada.ca but was unreachable at the time of checking. It likely provided guidance on nutrition, physical activity, and lifestyle choices for a healthy pregnancy."
+        "summary": "Making nutritious choices during pregnancy gives the baby essential nutrients for growth and development while lowering the risk of complications like low iron and high blood pressure. Covers which nutrients matter most, how to meet increased caloric needs, and practical strategies for eating well even with nausea or food aversions.",
+        "needs_detail_page": false
       },
       {
         "title": "Eating for a Healthy Pregnancy (UnlockFood)",
         "url": "https://www.unlockfood.ca/en/Articles/Pregnancy/Eating-for-a-Healthy-Pregnancy.aspx",
         "type": "article",
-        "summary": "This article from UnlockFood (a Dietitians of Ontario service) provides guidance on eating for a healthy pregnancy. It explains that making nutritious choices is especially important during pregnancy, as eating well gives the baby nutrients needed to grow and develop, and helps lower the risk of health problems such as low iron or high blood pressure."
+        "summary": "Gestational diabetes affects 3\u201320% of pregnant women and typically develops in the second or third trimester when the body cannot produce enough insulin to meet increased needs. In most cases it resolves after birth, but it increases the risk of complications for both mother and baby and raises the mother's long-term risk of developing type 2 diabetes.",
+        "needs_detail_page": true
       },
       {
         "title": "Gestational Diabetes (Diabetes Canada)",
         "url": "https://www.diabetes.ca/about-diabetes/gestational",
         "type": "external",
-        "summary": "This Diabetes Canada page explains gestational diabetes, a type of diabetes that occurs during the second or third trimester of pregnancy. Between 3 to 20% of pregnant women develop gestational diabetes depending on risk factors, and in most cases the diabetes goes away after giving birth."
+        "summary": "The glycemic index (GI) ranks carbohydrates on a scale from 0\u2013100 based on how quickly they raise blood sugar levels after eating. Low-GI foods (55 or less) cause a slower, more gradual rise, which helps manage blood sugar \u2014 especially relevant for those with or at risk of gestational diabetes.",
+        "needs_detail_page": false
       },
       {
         "title": "Getting to Know the Glycemic Index",
         "url": "http://www.eatrightontario.ca/en/Articles/Carbohydrate/Getting-to-know-the-Glycemic-Index.aspx",
         "type": "article",
-        "summary": "This was an EatRight Ontario article explaining the glycemic index (GI) and how different carbohydrates affect blood sugar levels. The URL is dead/unreachable \u2014 EatRight Ontario's website has been discontinued and its content merged into other resources."
+        "summary": "Fish is an important source of omega-3 fatty acids for fetal brain development, but some species contain high mercury levels that can harm a developing baby. Guidelines recommend choosing low-mercury fish (like salmon, trout, and sardines) while limiting or avoiding high-mercury species (like shark, swordfish, and tilefish), with specific advice on safe serving frequencies.",
+        "needs_detail_page": false
       },
       {
         "title": "Eating Fish during Pregnancy (Mercury)",
         "url": "https://www.canada.ca/en/health-canada/services/food-nutrition/food-safety/chemical-contaminants/environmental-contaminants/mercury/mercury-fish.html",
         "type": "guide",
-        "summary": "This Government of Canada page provides guidance on mercury in fish and safe fish consumption during pregnancy. The URL was unreachable at the time of checking, but it likely advises which fish species are safe to eat and which should be limited or avoided due to mercury content."
+        "summary": "Pregnant women are at higher risk for foodborne illness due to a weakened immune system. Key precautions include avoiding raw or undercooked meats and eggs, unpasteurized dairy and juices, deli meats unless heated to steaming, and practicing safe food storage, handling, and cooking temperatures to prevent listeria, toxoplasmosis, and salmonella infections.",
+        "needs_detail_page": true
       },
       {
         "title": "Safe Food Handling for Pregnant Women",
         "url": "https://www.canada.ca/en/health-canada/services/food-safety-vulnerable-populations/food-safety-pregnant-women.html",
         "type": "guide",
-        "summary": "This Government of Canada page covers food safety recommendations specifically for pregnant women, who are considered a vulnerable population for foodborne illness. The URL was unreachable at the time of checking, but it likely provides guidance on avoiding listeria, toxoplasmosis, and other food safety risks during pregnancy."
+        "summary": "Iron deficiency anemia during pregnancy can cause fatigue, weakness, and increased risk of complications. The guide covers how anemia is diagnosed (hemoglobin below 110 g/L in pregnancy), which oral iron supplements are available and how they compare in dosage and side effects, dietary strategies to boost iron absorption, and when additional treatment may be needed.",
+        "needs_detail_page": true
       },
       {
         "title": "Iron Deficiency Anemia (Ontario Midwives)",
         "url": "https://www.ontariomidwives.ca/anemia",
         "type": "external",
-        "summary": "This page from the Association of Ontario Midwives (AOM) provides an overview of iron deficiency anemia in the childbearing year, including management approaches during pregnancy and postpartum. It includes a guide comparing oral iron supplements for midwives and client-facing information about anemia, its effects, and treatment options."
+        "summary": "Cannabis use in any form during pregnancy and breastfeeding may affect a baby's health and development. THC crosses the placenta and passes into breast milk, and no amount has been proven safe. The resource helps individuals understand the risks, reflect on their use through guided questions, and prepares them for informed conversations with their healthcare provider.",
+        "needs_detail_page": false
       },
       {
         "title": "Use of Cannabis during Pregnancy and Breastfeeding",
         "url": "https://www.pregnancyinfo.ca/learn-more/",
         "type": "guide",
-        "summary": "This PregnancyInfo.ca page provides educational information about the risks of cannabis use during pregnancy and breastfeeding. It includes survey questions and resources to help pregnant individuals understand why cannabis in any form may affect their baby's health and encourages discussions with healthcare providers."
+        "summary": "Cannabis in any form \u2014 including edibles, oils, and topicals \u2014 may affect a baby's health during pregnancy and breastfeeding. THC passes through the placenta and into breast milk, and current evidence does not support a safe level of use during these periods.",
+        "needs_detail_page": false
       },
       {
         "title": "Not Just a Herb (YouTube)",
         "url": "https://www.youtube.com/watch?v=hxU5fBsmpKo",
         "type": "video",
-        "summary": "This YouTube video titled 'Not Just an Herb' warns that cannabis in any form may affect a baby's health during pregnancy and breastfeeding. It directs viewers to pregnancyinfo.ca/learn-more for additional information and resources about cannabis risks during pregnancy."
+        "summary": "Updated guidelines and evolving perspectives on pregnancy and childbirth practices, reflecting how medical recommendations have shifted over time. Covers changes in thinking about labour interventions, pain management approaches, and evidence-based practices that have replaced older conventions.",
+        "needs_detail_page": false
       },
       {
         "title": "Times Have Changed (SOGC)",
         "url": "https://sogc.us1.list-manage.com/track/click?u=734c42549aac83f0994775df6&id=2cad8c09e2&e=c61799a8b3",
         "type": "article",
-        "summary": "This link redirects to a YouTube video titled 'Times Have Changed' produced by the Society of Obstetricians and Gynaecologists of Canada (SOGC). The video likely discusses updated guidelines or changing perspectives on pregnancy and childbirth practices. The tracked link makes direct content extraction difficult."
+        "summary": "Printable handout covering healthy eating during pregnancy, including key nutrient requirements, safe and unsafe foods, Canada's Food Guide recommendations adapted for pregnancy, managing gestational diabetes risk, and practical meal planning tips.",
+        "needs_detail_page": false
       },
       {
         "title": "Session 1 Handout (DOCX)",
         "url": "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/session_1.docx",
         "type": "document",
-        "summary": "This is a downloadable Word document (DOCX) containing the handout materials for Session 1 of the BHM Connecting Pregnancy program on Healthy Eating for a Healthy Pregnancy. It would need to be downloaded and opened in a word processor to view its contents."
+        "summary": "Printable handout covering all key topics from the Healthy Eating session: recommended daily servings from each food group, foods to avoid during pregnancy, safe caffeine limits, and a quick-reference guide for making nutritious choices throughout each trimester.",
+        "needs_detail_page": false
       }
     ],
     "images": [
@@ -884,73 +941,85 @@
         "title": "Dr. Nicole or Dr. Jill \u2014 Awaken Chiropractic",
         "url": "http://www.awakenchirokw.com/",
         "type": "external",
-        "summary": "This is the website for Awaken Chiropractic in Kitchener-Waterloo, featuring Dr. Nicole and Dr. Jill who present on chiropractic care during pregnancy. The site was returning a 403 Forbidden error at the time of checking and may no longer be publicly accessible."
+        "summary": "Practical self-care tips for common pregnancy discomforts including breast tenderness, shortness of breath, dizzy spells, nasal congestion, and constipation. For each symptom, the guide offers specific remedies and lifestyle adjustments to help manage discomfort throughout pregnancy.",
+        "needs_detail_page": false
       },
       {
         "title": "Comfortable Pregnancy (Region of Waterloo PDF)",
         "url": "https://www.regionofwaterloo.ca/en/health-and-wellness/resources/Documents/PromotingComfortablePregnancy.pdf",
         "type": "pdf",
-        "summary": "This Region of Waterloo Public Health PDF provides a two-page guide on promoting a comfortable pregnancy. It covers common pregnancy discomforts including breast changes, shortness of breath, dizzy spells, stuffy nose, and constipation, along with practical self-care tips and remedies for each symptom."
+        "summary": "Most pregnant people can and should exercise regularly \u2014 physical activity reduces the risk of gestational diabetes, preeclampsia, and excessive weight gain while improving mood, sleep, and stamina for labour. Covers safe activities (walking, swimming, prenatal yoga), activities to avoid, warning signs to stop exercising, and how to modify routines through each trimester.",
+        "needs_detail_page": true
       },
       {
         "title": "Exercise during Pregnancy",
         "url": "https://www.pregnancyinfo.ca/your-pregnancy/healthy-pregnancy/exercise-during-pregnancy/",
         "type": "guide",
-        "summary": "This PregnancyInfo.ca article explains that exercise is part of a healthy lifestyle and most pregnant people can and should exercise during pregnancy. It covers the benefits of exercise during pregnancy, safe activities, precautions, and guidelines for staying active throughout each trimester."
+        "summary": "Guidelines for exercise before, during, and after pregnancy including what to look for in a prenatal exercise class: the instructor should have additional pregnancy-specific training, sessions should include warm-up and cool-down periods, participants should monitor their heart rate, and programs should combine both aerobic and muscle-strengthening components.",
+        "needs_detail_page": false
       },
       {
         "title": "Active Living & Pregnancy (Region of Waterloo PDF)",
         "url": "https://www.regionofwaterloo.ca/en/health-and-wellness/resources/Documents/ActiveLiving_Pregnancy.pdf",
         "type": "pdf",
-        "summary": "This Region of Waterloo Public Health PDF provides guidance on active living before, during, and after pregnancy. It includes recommendations for exercise classes during pregnancy such as ensuring the instructor has additional training, sessions include warm-up and cool-down, participants monitor heart rate, and programs include both aerobic and muscle strengthening exercises."
+        "summary": "Weight gain during pregnancy comes not just from the baby but also the placenta, increased blood volume, larger breasts, amniotic fluid, and fat stores for breastfeeding. The amount of weight gained matters \u2014 too little increases the risk of low birth weight, while too much raises the risk of complications like gestational diabetes, preeclampsia, and difficult delivery. Healthy ranges depend on pre-pregnancy BMI.",
+        "needs_detail_page": false
       },
       {
         "title": "Weight Gain during Pregnancy",
         "url": "https://www.pregnancyinfo.ca/your-pregnancy/healthy-pregnancy/weight-gain-during-pregnancy/",
         "type": "guide",
-        "summary": "This PregnancyInfo.ca article addresses weight gain during pregnancy, explaining that gaining weight is inevitable and not solely from the baby \u2014 the placenta, increased blood volume, larger breasts, and fat stores for breastfeeding all contribute. It provides guidance on healthy weight gain ranges and why the amount of weight gained matters for maternal and fetal health."
+        "summary": "Strategies for preventing preterm birth and comprehensive pregnancy health information covering the key decisions before, during, and after pregnancy. Emphasizes that having the right information at the right time supports the best outcomes for both mother and baby.",
+        "needs_detail_page": false
       },
       {
         "title": "Preterm Labour \u2014 Public Health",
         "url": "https://www.regionofwaterloo.ca/en/health-and-wellness/healthy-pregnancy.aspx#Prevent-preterm-birth",
         "type": "external",
-        "summary": "This Region of Waterloo Public Health page provides comprehensive information about healthy pregnancy, including a section on preventing preterm birth. It emphasizes that having the right information before, during, and after pregnancy is important for making the best decisions for maternal and baby health."
+        "summary": "Preterm labour involves regular contractions that cause cervical changes before 37 weeks of pregnancy and may lead to preterm birth. Signs include contractions every 10 minutes or less, pelvic pressure, low back pain, and changes in vaginal discharge. Risk factors include multiple pregnancy, infection, and previous preterm birth. Seek medical attention immediately if symptoms appear.",
+        "needs_detail_page": true
       },
       {
         "title": "Preterm Labour (SOGC)",
         "url": "https://www.pregnancyinfo.ca/birth/special-considerations/preterm-labour/",
         "type": "guide",
-        "summary": "This PregnancyInfo.ca article explains preterm labour as the presence of regular contractions that lead to changes in the cervix prior to 37 weeks of pregnancy, which may lead to preterm birth. It provides information on signs, symptoms, risk factors, and what to do if preterm labour is suspected."
+        "summary": "Preterm labour starts before 37 weeks and babies born preterm face risks including breathing difficulties, infections, and long-term health problems. The booklet describes warning signs \u2014 regular contractions, cramping, pelvic pressure, and fluid leakage \u2014 and provides clear guidance on when to call a healthcare provider or go to the hospital, emphasizing that early detection improves outcomes.",
+        "needs_detail_page": false
       },
       {
         "title": "Preterm Labour Booklet (Best Start PDF)",
         "url": "https://resources.beststart.org/wp-content/uploads/2018/12/E06-E.pdf",
         "type": "pdf",
-        "summary": "This Best Start Resource Centre PDF is an 8-page booklet about preterm labour signs and symptoms for pregnant women, their partners, and families. It explains that preterm labour starts before 37 weeks, describes risks to babies born preterm (breathing difficulties, infections, long-term health problems), and provides guidance on recognizing warning signs and when to seek medical help."
+        "summary": "Working during pregnancy is safe for most people, but certain workplace hazards \u2014 heavy lifting, toxic chemicals, prolonged standing, and shift work \u2014 may require accommodations. Covers legal rights to workplace modifications during pregnancy, when to request changes, and key contacts including healthcare providers, workplace safety representatives, and helplines for exposure concerns.",
+        "needs_detail_page": false
       },
       {
         "title": "Work & Pregnancy Do Mix (Best Start PDF)",
         "url": "http://beststart.org/resources/wrkplc_health/pdf/preg_work_8p_book_rev09.pdf",
         "type": "pdf",
-        "summary": "This Best Start PDF booklet addresses working during pregnancy, providing information on workplace rights, safety considerations, and accommodations. It includes contacts for additional information such as healthcare providers, local health units, workplace health and safety representatives, and the Motherisk helpline for workplace exposure concerns."
+        "summary": "Most women with uncomplicated, low-risk pregnancies can work for as long as they want. However, certain conditions \u2014 such as preeclampsia, risk of preterm labour, or carrying multiples \u2014 may make working hazardous. The resource identifies specific situations that require workplace modifications or stopping work, and advises discussing your job duties with your healthcare provider.",
+        "needs_detail_page": false
       },
       {
         "title": "Working During Pregnancy",
         "url": "https://www.pregnancyinfo.ca/your-pregnancy/healthy-pregnancy/working-during-pregnancy/",
         "type": "guide",
-        "summary": "This PregnancyInfo.ca article addresses common questions about working during pregnancy, confirming that most women with uncomplicated, low-risk pregnancies can work as long as they would like. It also identifies specific situations that might make working hazardous for both the pregnant person and the baby."
+        "summary": "EI maternity benefits provide up to 15 weeks of income replacement for the birth mother around childbirth, while parental benefits provide up to 40 weeks (standard) or 69 weeks (extended) shared between parents. Eligibility requires 600 insured hours of work, and benefit amounts are approximately 55% of insurable earnings up to a maximum. Applications should be submitted as soon as possible after stopping work.",
+        "needs_detail_page": true
       },
       {
         "title": "Employment Insurance Benefits (Maternity/Parental)",
         "url": "https://www.canada.ca/en/services/benefits/ei/ei-maternity-parental.html",
         "type": "guide",
-        "summary": "This Government of Canada page provides information about Employment Insurance (EI) maternity and parental benefits available to expecting and new parents. The URL was unreachable at the time of checking, but it typically covers eligibility requirements, benefit amounts, application processes, and duration of maternity and parental leave benefits."
+        "summary": "Prenatal chiropractic care and exercise during pregnancy, covering how spinal and pelvic alignment affects comfort and labour, safe exercises to maintain strength and mobility, and personal perspectives on staying active throughout pregnancy while receiving chiropractic support for pregnancy-related musculoskeletal pain.",
+        "needs_detail_page": false
       },
       {
         "title": "Awaken Chiropractic Presentation (PDF)",
         "url": "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/pdf_awaken_chiropractic_pregnancy_and_exercise.pdf",
         "type": "pdf",
-        "summary": "This PDF presentation by Dr. Jill Cameron and Dr. Nicole Lederman of Awaken Chiropractic covers prenatal chiropractic care and exercise during pregnancy. It includes personal perspectives on exercising through pregnancy and practical advice on staying active while receiving chiropractic support."
+        "summary": "Practical self-care techniques for pregnancy discomforts including chiropractic adjustments, stretches for back and pelvic pain, posture corrections, and ergonomic tips for daily activities. Covers which aches are normal and when to seek professional care.",
+        "needs_detail_page": true
       }
     ],
     "images": [
@@ -967,67 +1036,78 @@
         "title": "ALPHA Self-Report Questionnaire (PDF)",
         "url": "http://womanabuse.webcanvas.ca/documents/alpha_self_report.pdf",
         "type": "pdf",
-        "summary": "This is a self-report questionnaire from the ALPHA (Antenatal Psychosocial Health Assessment) project, used to screen for psychosocial factors during pregnancy including woman abuse. The URL was unreachable at the time of checking, but it is designed to help healthcare providers identify and address psychosocial risk factors in pregnant patients."
+        "summary": "Pregnancy brings significant emotional changes for both the pregnant person and their partner. Partners commonly worry about the health of the mother and baby, finances, and being present at the birth. Healthcare providers can answer questions about how pregnancy and birth change the body, and open communication between partners helps manage anxiety and strengthen the support system.",
+        "needs_detail_page": false
       },
       {
         "title": "Emotional Changes in Pregnancy (Region of Waterloo PDF)",
         "url": "https://www.regionofwaterloo.ca/en/health-and-wellness/resources/Documents/EmotionalHealth_Pregnancy.pdf",
         "type": "pdf",
-        "summary": "This Region of Waterloo Public Health PDF covers emotional changes during pregnancy, including guidance for partners and support persons. It addresses common worries partners may have (health of mother and baby, finances, being present at birth) and advises that healthcare providers can help answer questions about how pregnancy and birth change the body."
+        "summary": "Prenatal depression affects up to 1 in 10 pregnant people and can manifest as persistent sadness, loss of interest in activities, changes in appetite or sleep, and feelings of worthlessness. Risk factors include a history of depression, lack of social support, and stressful life events. Treatment options range from counselling and support groups to medication when needed.",
+        "needs_detail_page": false
       },
       {
         "title": "Depression & Pregnancy (PHAC)",
         "url": "http://www.phac-aspc.gc.ca/mh-sm/preg_dep-eng.php",
         "type": "guide",
-        "summary": "This Public Health Agency of Canada page addresses depression during pregnancy. The old URL redirects to canada.ca but was unreachable at the time of checking. It likely provides information about recognizing symptoms of prenatal depression, risk factors, and available treatment and support options."
+        "summary": "Emotional wellbeing during pregnancy covers the range of normal mood changes \u2014 from excitement to anxiety \u2014 and when feelings cross into concern. Addresses signs that warrant professional support, coping strategies for stress and worry, and the importance of building a mental health support network during and after pregnancy.",
+        "needs_detail_page": false
       },
       {
         "title": "Mental Health during Pregnancy",
         "url": "https://www.healthyparentshealthychildren.ca/im-pregnant/overview-of-pregnancy/mental-health/",
         "type": "guide",
-        "summary": "This page from the Healthy Parents Healthy Children website (part of the MyHealth.Alberta.ca network) covers mental health during pregnancy. The site is heavily JavaScript-rendered and minimal content could be extracted, but it likely provides information about emotional wellbeing, mood changes, and mental health support during pregnancy."
+        "summary": "In Ontario, approximately 20% of people in midwifery care plan a home birth. Research shows that for low-risk pregnancies, home birth is as safe as hospital birth with lower rates of interventions like epidurals, episiotomies, and C-sections. Midwives bring the same emergency equipment and medications to home births as they have in hospital, and seamless transfer protocols are in place if needed.",
+        "needs_detail_page": true
       },
       {
         "title": "Homebirth (Ontario Midwives)",
         "url": "https://www.ontariomidwives.ca/home-birth",
         "type": "external",
-        "summary": "This Association of Ontario Midwives page explains why home birth is a safe option, noting that in Ontario around 20% of people in midwifery care plan to have their babies at home. It provides information on the safety, benefits, and considerations for choosing a home birth with midwifery support."
+        "summary": "Frequently asked questions about water birth covering how labouring in water provides pain relief, buoyancy helps with positioning, and what safety precautions apply. Addresses common concerns about infection risk, water temperature, baby breathing underwater, and who is a good candidate for water birth.",
+        "needs_detail_page": false
       },
       {
         "title": "Water Birth (FAQs)",
         "url": "http://waterbirth.org/faqs/",
         "type": "external",
-        "summary": "This Water Birth International page was intended to provide frequently asked questions about water birth. The URL is dead \u2014 it now returns a 404 Not Found error, indicating the page has been removed or relocated."
+        "summary": "Hospital birth with midwifery care provides access to medical interventions if needed while maintaining the midwifery model of continuous, personalized support. Hundreds of thousands of babies have been born into the hands of midwives in Ontario hospitals since regulation. Midwives have admitting privileges and can manage care from admission through discharge.",
+        "needs_detail_page": false
       },
       {
         "title": "Hospital Birth (Ontario Midwives)",
         "url": "https://www.ontariomidwives.ca/why-give-birth-hospital",
         "type": "external",
-        "summary": "This Association of Ontario Midwives page explains why giving birth at a hospital is a common and well-supported choice. It notes that hundreds of thousands of babies have been born into the hands of midwives in Ontario hospitals since midwifery was regulated, and discusses the regulatory framework and benefits of hospital birth with midwifery care."
+        "summary": "There is no single definition of 'normal' childbirth \u2014 the terms 'normal' and 'natural' are often used interchangeably but carry different meanings. A wide range of situations and experiences fall within normal birth, including varying labour lengths, pain levels, and whether interventions are used. Understanding this range helps reduce anxiety and set realistic expectations.",
+        "needs_detail_page": false
       },
       {
         "title": "Normal Childbirth",
         "url": "https://www.pregnancyinfo.ca/birth/delivery/normal-childbirth/",
         "type": "guide",
-        "summary": "This PregnancyInfo.ca article discusses vaginal birth and what constitutes 'normal' childbirth. It acknowledges that there has always been uncertainty about what defines normal childbirth, noting that words like 'normal' and 'natural' are often interchanged, and that a wide range of situations and experiences can be considered normal."
+        "summary": "Labour is divided into three stages: the first stage (from the start of regular contractions to full cervical dilation) has early, active, and transitional phases; the second stage runs from full dilation to the birth of the baby; and the third stage covers delivery of the placenta. Each stage has distinct physical signs, typical durations, and coping strategies.",
+        "needs_detail_page": true
       },
       {
         "title": "Stages of Labour (The Women's Hospital)",
         "url": "https://www.thewomens.org.au/health-information/pregnancy-and-birth/labour-birth/stages-of-labour/",
         "type": "guide",
-        "summary": "\b\u0000\u0000\u0000\u0000\u0000\u0000\u0003=ks\u06f6_3=\u0015%[-el|ovjvv2\u001aD$\u0012\u0015\u0776;7/s\u000e\u0000\u0012(}wLkx 'p\u0000nomomoo|\u007f) $ o|yi!T\u0014,=Og\u001aX\\\u04e71;\u001a\u030fRN* \u0005^${n\u0007J~Hhm][{6\u0001{.TT).5\u0015!\u05fb0\u0000cm |\u0011i\u00145yf\u0019; \u0005\u000fHP}/ \u0187~VpHy=J\u0142=Eq %\u0013W\"-{|s6\u001b\u0005Xi,\u0012U\u0000+\u000e{{U\u0017P\u0005iB^\u0010oF\u0740\u0017\u0005_{+ u>W \u0015y)Ej\u001b\u0016E\u0006b\u045f\u0013Z >O4RL\u0006\u001a\u0007Q\u0000E\u0005 }%\u0003\u044fR%\u2458\u0001\\fU\u007f,4;\bi\u00119\u07df^y\u0673`9eO\u0006^\u0002\u0004\u0012\u0018\u000e\u0013\u0568\u000f2x\u0011Mc\u0001T$yb9}:\u0012\\t ?9P \u0014Q\u0011\u0019`K(&T9$ O} rE)^\u0011Ay c[z\u0000G tgEC\u02595\u0004H^s x*`%SBN\u0000ck\u00064J\u0000\u0003MH\bePfp \u0011{)Q,iZ7\u007f\u0015E&`\u0011\u0005E8 U ^z\u0004.\u0014\u0003\u024f:8Vh Jt 1 y\u019b\u0014\u0001l5B>L V3Y:8Pl4\u000f\u0014\u007f\u0005..."
+        "summary": "Preparation for labour includes understanding the physical process, packing a hospital bag, creating a birth plan or preference list, learning breathing and relaxation techniques, and arranging support people. Knowing what to expect at each stage helps reduce fear and increases confidence going into birth.",
+        "needs_detail_page": false
       },
       {
         "title": "Preparing for Labour (The Women's Hospital)",
         "url": "https://www.thewomens.org.au/health-information/pregnancy-and-birth/labour-birth/preparing-for-labour/",
         "type": "guide",
-        "summary": "\b\u0000\u0000\u0000\u0000\u0000\u0000\u0003={s6\u007f\u06df\u0002eg\"{jJ\u0012;m)8N kD4{ [;\u0012o[3\u0002h' 1ii\u00b6v,LwZ^p_?\u007f\u007f}x1\u052f4od\u001b{\u0001bH I=\u0011f|\u00141\"\u00017i\u0001sD \u0002\u0019\"6.e@ \u0004\u0004(\u00009\u0012yJ~%\u0017!#\u015cFG\u0001=oIL ht\u001575f p\u07fabH}*ie\u0000!U\u0010f\b\u05fbw J\u0012\u001a0; \u024cFY\u0003&\u0012yB'\"\u0011w\u0018x#\u0000Y4! M<>1>\bO\" \u05ff3\u0002\u0017Es2aH\u0011O\u0000)# \u0004$fX\b+\u0013_\u0010 L\u012c+tG\u0011t #Fb\u0010'2Qe~[c\u0019aX\u00034pF-\u0012l\u072f 1 H#\" 4h\u06b8 \u02dfi\u0016N wWq0+\u001b\u0012iMg\"kR \u0012 \u02501PiH? z\u000f=glQ\u0015h~\u007f\u0396 l Xh\u02a2%RT\u0018D|\u00044d\u0011\u0003#{\u007fNh75h/w B8\u0011\u007fp\u0010B \u0268xpN \u07f4*pF_m \u0016xk\u0017 \u000e^\u0017z\u0000CO\u0019r)>\u0691G\u000fSiB$G,u#\u0118\u0483q{\u0004\u0006~}\u0005\u007f~\u05c7\u07f0}\ubbe6\u0018c \u007f0a\u06a7 \u0002s\u00104: x\u000e]xBE\u07f4 M[l[M..."
+        "summary": "Choosing a midwife for your birth means you and your baby will be cared for by someone you've already met who knows you and understands what matters to you. Midwives are experts in healthy, low-risk birth and provide continuous one-on-one support throughout labour. They can attend births at home, in birth centres, or in hospitals, and monitor both mother and baby throughout the process.",
+        "needs_detail_page": true
       },
       {
         "title": "Birth with a Midwife (Ontario Midwives)",
         "url": "https://www.ontariomidwives.ca/giving-birth",
         "type": "external",
-        "summary": "Giving Birth | AOM Skip to main content Giving Birth Midwives view labour and birth as a profound time in the lives of everyone involved. Choosing a midwife to provide your care typically means that when it comes time to give birth, you and your baby will be cared for by someone you've met before\u2014someone who knows you and understands what's important to you. As experts in healthy, low-risk birt..."
+        "summary": "Midwife-attended birth in Ontario includes continuous one-on-one support throughout labour, informed choice at every stage, and the option of home or hospital delivery. Midwives monitor both parent and baby, manage complications, and provide 6 weeks of postpartum care.",
+        "needs_detail_page": true
       }
     ],
     "images": [
@@ -1046,61 +1126,71 @@
         "title": "What is a Doula? (DONA)",
         "url": "http://www.dona.org/mothers/index.php",
         "type": "external",
-        "summary": "Page not found - DONA International The page can&rsquo;t be found. It looks like nothing was found at this location."
+        "summary": "Common questions about birth doulas: what they do during labour (massage, positioning, breathing coaching, emotional support), how they differ from midwives and nurses, whether partners are still needed, evidence on how doula support reduces C-section rates and labour length, and how to find and hire a certified doula.",
+        "needs_detail_page": false
       },
       {
         "title": "Doula FAQs (DONA)",
         "url": "http://www.dona.org/mothers/faqs_birth.php",
         "type": "external",
-        "summary": "Page not found - DONA International The page can&rsquo;t be found. It looks like nothing was found at this location."
+        "summary": "Perineal massage during the last 4\u20136 weeks of pregnancy involves gently stretching the tissue between the vagina and anus to increase flexibility and reduce the risk of tearing during birth. Studies suggest it can reduce the likelihood of needing stitches, particularly for first-time mothers.",
+        "needs_detail_page": false
       },
       {
         "title": "Perineal Massage (SCBP PDF)",
         "url": "https://scbp.ca/assets/documents/5_1_Perineal_massage_in_pregnancy.pdf",
         "type": "pdf",
-        "summary": "PDF document about perineal massage (scbp pdf). Content preview: 'nav-open' 'nav-open' -104 -831 1 1 $event.target subnavOpen = false $event.target subnavOpen = false '[aria-current=page]' $event.target subnavOpen = false '[aria-current=page]' $event.target subnavO"
+        "summary": "Penny Simkin's evidence-based guide to non-medical comfort measures during labour, including breathing techniques, position changes, massage, hot and cold therapy, water immersion, and vocalization. Emphasizes that having multiple coping strategies ready increases confidence and reduces the perception of pain.",
+        "needs_detail_page": true
       },
       {
         "title": "Comfort in Labour (Simkin PDF)",
         "url": "https://www.kingstonmidwives.ca/userfiles/html_file/comfort-in-labor-simkin.pdf",
         "type": "pdf",
-        "summary": "PDF document about comfort in labour (simkin pdf). Content preview: prefers-color-scheme: light prefers-color-scheme: dark function(rollups, name !rollups[name] SQUARESPACE_ROLLUPS, 'squarespace-extract_css_runtime' function(rollups, name !rollups[name] SQUARESPACE_RO"
+        "summary": "Products for labour and postpartum recovery available for purchase or rental, including manual massage tools ($20), padsicle kits for perineal healing ($45), postpartum healing bath kits ($40), upside-down peri bottles ($20), and TENS units for drug-free labour pain relief. Also offers the 4th Trimester Guide and Workbook ($30).",
+        "needs_detail_page": false
       },
       {
         "title": "Birth Box & TENS Rental",
         "url": "https://balancingbirthbaby.com/shop/",
         "type": "external",
-        "summary": "Shop - Balancing Birth to Baby Inc. The options may be chosen on the product page Products Manual Massage Tool &#36; 20.00 Add to cart Products Padsicle Kit &#36; 45.00 Add to cart Products Postpartum Healing Bath Kit &#36; 40.00 Add to cart Guides The 4th Trimester Guide and Workbook &#36; 30.00 Add to cart Products Upside Down Peri Bottle &#36; 20.00 Add to cart Products Birth and Postpartum ..."
+        "summary": "A comprehensive toolkit for unmedicated birth that builds a personal toolbox of proven hands-on techniques for coping with labour pain. Covers positioning, breathing patterns, massage techniques, movement strategies, and partner support methods designed to help birthing people feel confident and prepared rather than anxious about delivery.",
+        "needs_detail_page": false
       },
       {
         "title": "Natural Pain Management Kit",
         "url": "https://balancingbirthbaby.com/product/natural-pain-management/",
         "type": "external",
-        "summary": "Natural Pain Management During Labour | Options for Childbirth Skip to content Natural Pain Management for Labour Childbirth Education From Balancing Birth To Baby Are you hoping to have an unmedicated birth? Feeling anxious about your upcoming delivery? Want to learn proven hands-on techniques to help you cope during labour? Feel confident and ready for your upcoming birth by building a toolbo..."
+        "summary": "Demonstration of birthing ball positions that help reduce labour pain and lower the risk of C-section delivery. A certified nurse-midwife and registered nurse show specific sitting, leaning, and rocking positions on the ball that encourage optimal fetal positioning, relieve back pressure, and help labour progress.",
+        "needs_detail_page": false
       },
       {
         "title": "Birth Ball (YouTube)",
         "url": "https://www.youtube.com/watch?v=T8UKDfluF9E",
         "type": "video",
-        "summary": "Video: Helpful Birthing Ball Positions - YouTube. Melissa Rosenberg, MSN, CNM, and registered nurse Kristen Yoh demonstrate various positions that help mothers reduce labor pains and risk of having a cesarea..."
+        "summary": "Practical comfort measures and hands-on support techniques that partners or support persons can use during labour, including counter-pressure for back pain, hip squeezes, guided breathing, position changes, and verbal encouragement strategies.",
+        "needs_detail_page": false
       },
       {
         "title": "Support Techniques During Labour (YouTube)",
         "url": "https://www.youtube.com/watch?v=7v-iJKBR3LM",
         "type": "video",
-        "summary": "Video: Comfort Measures and Support Techniques During Labor - YouTube. Informatics project NR 110.404"
+        "summary": "Breathing techniques, positioning strategies, relaxation methods, and other non-pharmacological comfort measures for managing labour pain. Covers how combining multiple techniques \u2014 rhythmic breathing, movement, vocalization, and touch \u2014 creates a layered approach to coping with contractions.",
+        "needs_detail_page": false
       },
       {
         "title": "Comfort Measures for Labour (YouTube)",
         "url": "https://www.youtube.com/watch?v=jw94EyVz3Rw",
         "type": "video",
-        "summary": "Video: Comfort Measures for Labour_Full Video - YouTube. Tips for using breathing, positioning, relaxation, and other comfort measures during labour."
+        "summary": "10 practical tips for birth partners: familiarize yourself with the birth plan, help the birthing person stay calm and focused, offer water and snacks, use massage and counter-pressure, suggest position changes, advocate for their wishes with staff, provide emotional encouragement, stay off your phone, pack your own hospital bag, and be flexible if plans need to change during labour.",
+        "needs_detail_page": true
       },
       {
         "title": "Tips for Partners During Labour (NHS UK)",
         "url": "https://www.nhs.uk/pregnancy/labour-and-birth/what-happens/tips-for-your-birth-partner/#close",
         "type": "guide",
-        "summary": "Tips for your birthing partner - Best Start in Life - NHS Skip to main content Tips for your birthing partner or partners Whoever you pick to be your birth partner (if you choose to have one), their job is to support, comfort and encourage you during labour and birth. 10 tips for birth partners Here are some useful tips to share with your birth partner. Familiarise yourself with the birth plan ..."
+        "summary": "Practical advice for birth partners: how to offer physical support (massage, counter-pressure, position changes), emotional encouragement, advocating for the birthing person's preferences, knowing when to step back, and staying calm during unexpected developments.",
+        "needs_detail_page": true
       }
     ],
     "images": [
@@ -1121,67 +1211,78 @@
         "title": "Caesarean Section",
         "url": "https://www.pregnancyinfo.ca/birth/delivery/caesarean-section/",
         "type": "guide",
-        "summary": "Caesarean Section (C-Section) &#8211; Pregnancy Info Birth Delivery Caesarean Section (C-Section) Caesarean Section (C-Section) What is a C-Section? A caesarean section (commonly called a c-section) is the delivery of your baby through a surgical opening in the lower belly instead of through the vagina. Under what circumstances are c-sections performed? A caesarean is needed in a number of circ..."
+        "summary": "Vaginal birth after caesarean (VBAC) is an option for many people who have had a previous C-section. The resource helps individuals weigh the benefits of VBAC (shorter recovery, no surgical risks) against the risks (small chance of uterine rupture, approximately 0.5%), and understand the factors that affect VBAC success rates.",
+        "needs_detail_page": false
       },
       {
         "title": "VBAC (Ontario Midwives PDF)",
         "url": "https://www.ontariomidwives.ca/sites/default/files/Thinking-about-VBAC-English_1.pdf",
         "type": "pdf",
-        "summary": "PDF document about vbac (ontario midwives pdf). Content preview: y9<>\u0010v/q\u06aa\u0007&\b b0a*c4C Avenir Light X[(STx*=\u0015JOSTx*=\u0015JO\nUQ0`: Avenir Heavy \u001eCvVH\u0003\u07bced:w\u0007\\\u00074\\y(N9~\u0010\u042cRQ\u0015e\u077b-8OBmp\u0016r0\u0443 \u000f^p&}%zg\u2c94.<sv\u042aUC\u0674PKG\tA\bVy\u0001Dq\b%<\u040f%\u001c-Tb'M(@@.d'Z'S :\r&BBa\u001a\u0019Deo\b\u001bZ\u0016\u0014Z\u001fVI]t\u0336|\u0003x4\u0018\u001fYy\u02a2op\u0019\u0004\u001f|W"
+        "summary": "Information about vaginal birth and common medical interventions available at Grand River Hospital's labour and delivery unit, including augmentation of labour, assisted delivery with forceps or vacuum, and pain management options. The hospital provides 24/7 obstetric coverage for births in the Waterloo Region.",
+        "needs_detail_page": false
       },
       {
         "title": "Vaginal Birth & Interventions at GRH",
         "url": "https://www.grhosp.on.ca/care/services-departments/childbirth/labour-and-delivery/vaginal-birth",
         "type": "external",
-        "summary": "Waterloo Regional Health Network | WRHN Skip to Main Content Welcome to Waterloo Regional Health Network (WRHN)! Outstanding care that&#8217;s personal, seamless, and reimagined. Getting Care at WRHN Healthcare Services Learn about the services we offer. At WRHN, we focus on care that meets each person\u2019s unique needs and helps shape a better future for the communities we serve."
+        "summary": "In a breech presentation, the baby is positioned feet- or bottom-first rather than head-down at the time of birth, which occurs in about 3\u20134% of full-term pregnancies. There is usually no obvious cause. Breech babies may be delivered by C-section or, in certain cases, vaginally with an experienced provider. External cephalic version (ECV) can sometimes turn the baby head-down before labour.",
+        "needs_detail_page": false
       },
       {
         "title": "Breech Birth",
         "url": "https://www.pregnancyinfo.ca/birth/delivery/breech-childbirth/",
         "type": "guide",
-        "summary": "Breech childbirth &#8211; Pregnancy Info Birth Delivery Breech childbirth Breech childbirth What is breech childbirth? At the time of labour, most babies are positioned head down in the uterus. Sometimes, however, a baby will be positioned so that the feet or bottom will come out first during childbirth. There is usually no obvious reason why a baby does this."
+        "summary": "Medical pain relief options during labour include nitrous oxide (gas), narcotic injections, and epidural anaesthesia. Each has different onset times, effectiveness levels, and side effects for both mother and baby. Epidurals provide the most complete pain relief but may slow labour and limit mobility. Discussing the risks and benefits of each option with your healthcare team before labour helps with informed decision-making.",
+        "needs_detail_page": true
       },
       {
         "title": "Medical Pain Management Options",
         "url": "https://www.pregnancyinfo.ca/birth/labour/pain-management/pain-management-with-medications/",
         "type": "guide",
-        "summary": "Pain management with medications &#8211; Pregnancy Info Birth Labour Pain management Pain management with medications Pain management with medications What are my choices for managing labour pain with medications? If you opt for medical methods of pain management, there are a number of available options. There are risks and benefits of each one. It\u2019s important to discuss science-based informati..."
+        "summary": "Labour induction means starting contractions artificially before they begin on their own, using methods such as prostaglandin gel, synthetic oxytocin (Pitocin), breaking the waters, or mechanical dilation. Induction may be recommended for medical reasons (overdue pregnancy, preeclampsia, baby not growing) or electively. Induced labours tend to be more intense and may increase the likelihood of further interventions.",
+        "needs_detail_page": false
       },
       {
         "title": "Induction (BabyCenter)",
         "url": "http://www.babycenter.ca/a173/induced-labour-101",
         "type": "guide",
-        "summary": "Induced labour 101 | BabyCenter Community Birth Clubs Groups See all in Community Getting Pregnant Ovulation calculator Am I pregnant quiz When to take a pregnancy test Best sex positions Top signs of pregnancy How soon after your period can you get pregnant? How age affects fertility What do fertility treatments cost? What fertile cervical mucus looks like Can you choose your baby&#x27;s sex? ..."
+        "summary": "Pregnancy lasting beyond 40 weeks (post-dates) is common and not inherently dangerous. The resource explains the difference between post-dates (past 40 weeks) and post-term (past 42 weeks), what monitoring is offered (fetal movement counts, non-stress tests, ultrasound), and the options available including expectant management vs. induction, helping parents make informed decisions about waiting vs. intervening.",
+        "needs_detail_page": true
       },
       {
         "title": "If You Go Past 40 Weeks (Ontario Midwives PDF)",
         "url": "https://www.ontariomidwives.ca/sites/default/files/2017-10/In-due-time-pregnancy-beyond-40-English.pdf",
         "type": "pdf",
-        "summary": "PDF document about if you go past 40 weeks (ontario midwives pdf). Content preview: 0aHd\u0011\u0018\b\u001f \u0298\u0098\u0016\u0001\u0013\u0019x\u0000iF \u0001 en-US NDIt`:2D Avenir Heavy Avenir Heavy Avenir Light Y%%%%\u0317%=\nz\u0014(Qqg\u001ez:x8x:x8x:x8xO`#\u001b\u000e\u001e\u000e\u001e\u001e\u0015=*\u0015|E2_W+U]\u047bwEwx9(\u681cb\u000eJOq\u000e9\u0018\rFglt68\u001b\rFglt68\u001b\r+\u0017Y_(\u000f\u01a7\u001fwWmZ\ud989\uddf0>|q\u0018]\\_W\u0001\u0000\rendstream\rendobj\r"
+        "summary": "Group B Streptococcus (GBS) is a common bacteria found in the vagina, rectum, or bladder of about 10\u201330% of pregnant women, usually without symptoms. Routine screening at 35\u201337 weeks involves a swab. If positive, intravenous antibiotics are given during labour to reduce the baby's risk of serious GBS infection, which can cause pneumonia, meningitis, or sepsis in newborns.",
+        "needs_detail_page": false
       },
       {
         "title": "Group B Strep Screening",
         "url": "https://www.pregnancyinfo.ca/your-pregnancy/routine-tests/group-b-streptococcus-screening/",
         "type": "guide",
-        "summary": "Group B Streptococcus screening &#8211; Pregnancy Info Your pregnancy Routine tests Group B Streptococcus screening Group B Streptococcus screening Screening for Group B Streptococcus is a routine test during pregnancy. What is group B streptococcus (GBS)? GBS is a common bacteria which is often found in the vagina, rectum, or bladder. Women often have GBS without having any symptoms."
+        "summary": "Assisted delivery uses vacuum extraction or forceps to help the baby out during the pushing stage when labour isn't progressing, the baby shows signs of distress, or the mother is too exhausted to push effectively. Vacuum uses a soft cup on the baby's head with suction, while forceps are curved instruments that cradle the head. Both carry small risks of bruising or minor injury to the baby and can cause maternal tissue damage.",
+        "needs_detail_page": false
       },
       {
         "title": "Assisted Delivery (Vacuum & Forceps)",
         "url": "https://www.pregnancyinfo.ca/birth/delivery/vacuum-and-forceps-assisted-birth/",
         "type": "guide",
-        "summary": "Vacuum and forceps-assisted birth &#8211; Pregnancy Info Birth Delivery Vacuum and forceps-assisted birth Vacuum and forceps-assisted birth When does delivery require assistance? Sometimes the mother or baby has trouble in the late stages of labour and assistance is needed to get the baby out. In some cases, help is needed because the baby is not doing well. In others, the mother may have a con..."
+        "summary": "For healthy, uncomplicated pregnancies, intermittent auscultation (listening to the baby's heartbeat periodically with a Doppler or fetoscope) is the recommended monitoring method. Continuous electronic fetal monitoring (EFM) uses belts around the abdomen and is typically used when risk factors exist, such as induction, epidural use, or concerns about the baby's wellbeing. EFM limits movement and may increase C-section rates.",
+        "needs_detail_page": false
       },
       {
         "title": "Fetal Monitoring and Surveillance",
         "url": "https://www.pregnancyinfo.ca/birth/labour/fetal-monitoring-and-surveillance-intermittent-auscultation-efm/",
         "type": "guide",
-        "summary": "Fetal monitoring and surveillance &#8211; Pregnancy Info Birth Labour Fetal monitoring and surveillance Fetal monitoring and surveillance What kind of fetal monitoring will happen while I am in labour? Your baby may be monitored in a number ways. If you are a healthy woman having an uncomplicated pregnancy, your health care provider will likely listen to the baby\u2019s heartbeat periodically and th..."
+        "summary": "When the amniotic sac ruptures before contractions begin (premature rupture of membranes), labour usually starts on its own within 24 hours. The key concern is infection risk, which increases the longer the rupture goes without delivery. Monitoring includes checking the baby's heart rate, watching for signs of infection (fever, foul-smelling fluid), and discussing options for waiting vs. induction.",
+        "needs_detail_page": false
       },
       {
         "title": "If Your Water Breaks Before Labour (Ontario Midwives PDF)",
         "url": "https://www.ontariomidwives.ca/sites/default/files/2020-06/When-your-water-breaks-before-labour-English.pdf",
         "type": "pdf",
-        "summary": "PDF document about if your water breaks before labour (ontario midwives pdf). Content preview: en-US \u0000x\u0000m\u0000p\u0000.\u0000d\u0000i\u0000d\u0000:\u00008\u0000a\u0000a\u00006\u0000b\u0000d\u0000a\u00004\u0000-\u0000b\u0000d\u00005\u0000d\u0000-\u00004\u00002\u00003\u00005\u0000-\u0000b\u00005\u0000f\u00008\u0000-\u00001\u00007\u0000f\u00003\u00003\u0000c\u0000d\u0000d\u00001\u00007\u0000b\u00001 \u0000D\u0000:\u00002\u00000\u00002\u00000\u00000\u00004\u00001\u00004\u00001\u00007\u00001\u00008\u00002\u00008\u0000Z \u0000x\u0000m\u0000p\u0000.\u0000d\u0000i\u0000d\u0000:\u0000e\u00000\u00008\u0000e\u0000e\u0000e\u0000a\u0000b\u0000-\u0000b\u00002\u00004\u00004\u0000-\u00004\u00004\u00006\u00009\u0000-\u00009\u00005\u00005\u00008\u0000-\u00005\u0000b\u00004"
+        "summary": "When membranes rupture before contractions begin, the risk of infection increases over time. Most people go into labour naturally within 24 hours. Monitoring includes checking temperature, fluid colour, and baby's movements. Induction may be recommended after 18-24 hours depending on circumstances.",
+        "needs_detail_page": true
       }
     ],
     "images": [
@@ -1199,85 +1300,99 @@
         "title": "Breastfeeding Buddies",
         "url": "https://www.breastfeedingbuddies.com/",
         "type": "external",
-        "summary": "Breastfeeding Buddies &#8211; Breastfeeding Buddies of Waterloo Region Skip to content Me Breastfeed Prenatal Workshop 1:1 Peer Match Latch &amp; Learn Series CONTACT BREASTFEEDING BUDDIES The Breastfeeding Buddies are here to help you meet your breastfeeding or chestfeeding goals. Peer support is an important first step to getting your breastfeeding questions answered in a relatable way. Breas..."
+        "summary": "Breastfeeding recommendations for the first two years of a child's life, including the benefits of exclusive breastfeeding for the first six months, introduction of complementary foods around six months alongside continued breastfeeding, nutritional requirements for infants, and public health guidance on supporting breastfeeding families.",
+        "needs_detail_page": false
       },
       {
         "title": "Breastfeeding \u2014 Public Health Canada",
         "url": "http://www.phac-aspc.gc.ca/hp-ps/dca-dea/stages-etapes/childhood-enfance_0-2/nutrition/index-eng.php",
         "type": "guide",
-        "summary": "Page about breastfeeding \u2014 public health canada. The URL was unreachable or returned no content."
+        "summary": "Practical advice for getting breastfeeding off to a good start: breastfeed within the first hour after birth, ensure a proper latch, feed on demand (8\u201312 times per 24 hours in the early weeks), avoid pacifiers and supplementing until breastfeeding is well-established, watch for signs the baby is getting enough milk (wet and dirty diapers, weight gain), and seek help early if problems arise.",
+        "needs_detail_page": false
       },
       {
         "title": "10 Tips for Successful Breastfeeding",
         "url": "https://www.canada.ca/en/public-health/services/health-promotion/childhood-adolescence/stages-childhood/infancy-birth-two-years/breastfeeding-infant-nutrition/valuable-tips-successful-breastfeeding.html",
         "type": "guide",
-        "summary": "Page about 10 tips for successful breastfeeding. The URL was unreachable or returned no content."
+        "summary": "Breastfeeding provides antibodies that protect babies from infections and illnesses, reduces the risk of SIDS, supports optimal brain development, promotes bonding, helps the mother's uterus contract and reduces postpartum bleeding, burns calories to help with postpartum weight loss, lowers the mother's risk of breast and ovarian cancers, is always available at the right temperature, costs nothing, and is environmentally sustainable.",
+        "needs_detail_page": false
       },
       {
         "title": "10 Great Reasons to Breastfeed",
         "url": "https://www.canada.ca/en/public-health/services/health-promotion/childhood-adolescence/stages-childhood/infancy-birth-two-years/breastfeeding-infant-nutrition/10-great-reasons-breastfeed-your-baby.html",
         "type": "guide",
-        "summary": "Page about 10 great reasons to breastfeed. The URL was unreachable or returned no content."
+        "summary": "A comprehensive library of evidence-based breastfeeding information sheets covering common challenges and questions: all-purpose nipple ointment (APNO), bleb protocol, blocked ducts and mastitis, breast compression, breastfeeding a toddler, starting out right, breastfeeding during illness and with jaundice, medication safety while breastfeeding, and many more clinical and practical topics.",
+        "needs_detail_page": true
       },
       {
         "title": "Breastfeeding Information Sheets (IBC)",
         "url": "http://ibconline.ca/information-sheets/",
         "type": "external",
-        "summary": "Information Sheets &#8211; International BreastFeeding Centre International BreastFeeding Centre &nbsp;/&nbsp; Information Sheets Information Sheets All Purpose Nipple Ointment (APNO) Bleb Protocol Blocked Ducts and Mastitis Breast Compression Breastfeed a Toddler - Why on Earth? Breastfeeding - Starting Out Right Breastfeeding and Illness Breastfeeding and Jaundice Breastfeeding and Medication..."
+        "summary": "Evidence-based breastfeeding help based on 34+ years of clinical experience from Dr. Jack Newman's practice. The centre provides reliable, practical information and support for breastfeeding challenges including latch difficulties, low milk supply, painful nursing, and medication safety \u2014 designed to help parents succeed with breastfeeding through proven clinical approaches.",
+        "needs_detail_page": true
       },
       {
         "title": "International Breastfeeding Centre",
         "url": "http://ibconline.ca/",
         "type": "external",
-        "summary": "International BreastFeeding Centre &#8211; Home of the world-renowned Newman Breastfeeding Clinic THE NEWMAN BREASTFEEDING CLINIC INTERNATIONAL BREASTFEEDING CENTRE At the Newman Breastfeeding Clinic we provide reliable and well-researched information based on 34 years of Dr. Jack Newman&#8217;s leadership, experience and our evidence-based practice. We offer real, practical breastfeeding help...."
+        "summary": "Visual demonstrations of proper breastfeeding techniques including how to achieve a good latch, correct positioning (cross-cradle, football, side-lying), recognizing a swallow, breast compression to increase milk flow, and what a good vs. poor latch looks like. Seeing real examples helps identify and correct common problems more effectively than written descriptions alone.",
+        "needs_detail_page": false
       },
       {
         "title": "Breastfeeding Videos (IBC)",
         "url": "http://ibconline.ca/breastfeeding-videos-2/",
         "type": "video",
-        "summary": "Video resource: Breastfeeding Videos (IBC). This YouTube video provides visual instruction on breastfeeding videos (ibc)."
+        "summary": "Free prenatal breastfeeding workshop held at Cambridge Memorial Hospital that prepares expecting parents for the early days of breastfeeding. Covers what to expect in the first hours and days after birth, how to get a good latch, recognizing feeding cues, and building confidence before the baby arrives. Also offers a Prenatal Pathway service for one-on-one support.",
+        "needs_detail_page": false
       },
       {
         "title": "What? Me Breastfeed? Workshops",
         "url": "https://www.breastfeedingbuddies.com/neve-home/about-services/me-breastfeed-workshop/",
         "type": "external",
-        "summary": "Me Breastfeed Workshop Registration &#8212; Cambridge Memorial &#8211; Breastfeeding Buddies Skip to content Me Breastfeed Workshop Registration &#8212; Cambridge Memorial Me Breastfeed Workshop Registration At Cambridge Memorial Hospital Please note- if options are not yet posted for sessions close to your due date, consider registering for our &#8220;Prenatal Pathway&#8221;. This free service..."
+        "summary": "A video series on breastfeeding and your baby covering latch techniques, positioning, recognizing hunger cues, understanding milk supply, and troubleshooting common breastfeeding problems. Visual, step-by-step demonstrations make the techniques easy to follow.",
+        "needs_detail_page": false
       },
       {
         "title": "Public Health Breastfeeding YouTube Playlist",
         "url": "https://www.youtube.com/playlist?list=PLownsWVDAO4x50Cm-X5EQ69L0elZ_UVXh",
         "type": "video",
-        "summary": "Video: Breastfeeding &amp; Your Baby - YouTube. Share your videos with friends, family and the world"
+        "summary": "A practical guide for new fathers \u2014 '24 Hr Cribside Assistance' \u2014 covering what to expect in the early days with a newborn, how to support the breastfeeding partner, bonding with the baby, handling diaper changes and soothing techniques, and adjusting to the emotional and practical changes of fatherhood.",
+        "needs_detail_page": false
       },
       {
         "title": "New Dad Manual",
         "url": "https://newdadmanual.wordpress.com/",
         "type": "external",
-        "summary": "24 Hr Cribside Assistance for New Dads &#8211; The baby manual for fathers Skip to content Search for: Search 24 Hr Cribside Assistance for New Dads Create a free website or blog at WordPress.com. Privacy &amp;  Subscribe Subscribed 24 Hr Cribside Assistance for New Dads Sign me up Already have a WordPress.com account? 24 Hr Cribside Assistance for New Dads Subscribe Subscribed Sign up Log in R..."
+        "summary": "Planning for the postpartum period is just as important as planning for birth but often overlooked. Covers practical preparations: stocking easy meals, arranging help from family and friends, setting up diaper stations, preparing perineal care supplies, understanding the emotional rollercoaster of the early weeks, and building a support network before the baby arrives.",
+        "needs_detail_page": true
       },
       {
         "title": "Postpartum Planning (Balancing Birth Baby)",
         "url": "https://balancingbirthbaby.com/planning-post-partum/",
         "type": "guide",
-        "summary": "Planning for your Post-Partum | Balancing Birth To Baby Skip to content Planning for your Postpartum So much time, effort and energy goes into planning for pregnancy and planning for the birth of a baby. Often what is neglected is planning for the postpartum period. We get so caught up in waiting to have a baby that when they actually come there is an awful \u201cAha!\u201d moment of \u201cWell what do we do ..."
+        "summary": "A free email course for new and expecting fathers with proven strategies to reduce stress, lead with confidence, and build stronger family relationships. Addresses why fathers matter in child development, how to bond with a newborn, supporting the birthing partner, and practical skills for hands-on parenting.",
+        "needs_detail_page": false
       },
       {
         "title": "Dad Central",
         "url": "http://www.dadcentral.ca/",
         "type": "external",
-        "summary": "Free 3-Lesson Email Fatherhood Course Discover proven strategies to reduce stress, lead your family with confidence, and build stronger relationships\u2014starting today. Please enable JavaScript in your browser to complete this form. Please enable JavaScript in your browser to complete this form. Name Email Name * Email * Get The Free Course As seen on and supported by: why dads Matter more than ev..."
+        "summary": "A workshop teaching life-saving skills that all new parents, caregivers, and grandparents should know. Covers infant CPR, choking response, safe sleep practices, baby-proofing essentials, and what to do in emergency situations \u2014 skills that are critical to have before you need them.",
+        "needs_detail_page": false
       },
       {
         "title": "Infant Safety Workshop",
         "url": "https://balancingbirthbaby.com/education/infant-safety/",
         "type": "external",
-        "summary": "Infant Safety Workshop | Join Us For This Informative Workshop Skip to content Infant Safety Night Infant Safety Night Join us for our Infant Safety Night! Knowing what to do and how to act if your child is having an emergency is a skill that will pay you back 10 fold should you ever need to call upon that knowledge. These are life-saving skills that all new parents, caregivers, and grandparent..."
+        "summary": "Safe sleep practices to reduce the risk of SIDS and other sleep-related infant deaths: always place babies on their back to sleep, use a firm mattress with a fitted sheet, keep the crib free of pillows, bumper pads, toys, and loose bedding, share a room (not a bed) for the first six months, avoid overheating, and ensure anyone caring for the baby follows these same guidelines.",
+        "needs_detail_page": true
       },
       {
         "title": "Safe Sleep Guidelines (Canada PDF)",
         "url": "https://www.canada.ca/content/dam/phac-aspc/documents/services/health-promotion/childhood-adolescence/stages-childhood/infancy-birth-two-years/safe-sleep/safe-sleep-your-baby-brochure/safe-sleep.pdf",
         "type": "pdf",
-        "summary": "This is a Canadian government (PHAC) PDF brochure providing safe sleep guidelines for babies. The PDF could not be fully extracted as text, but the resource is titled 'Safe Sleep for Your Baby' and is intended to educate parents on reducing the risk of sleep-related infant deaths through safe sleep practices."
+        "summary": "Babies should always sleep on their back, on a firm flat surface, in a crib or bassinet that meets current safety standards \u2014 no soft bedding, pillows, bumper pads, or toys in the sleep area. Room-sharing for the first 6 months reduces SIDS risk by up to 50%. Breastfeeding, avoiding smoke exposure, and keeping the room at a comfortable temperature also lower risk.",
+        "needs_detail_page": true
       }
     ],
     "images": [
@@ -1298,97 +1413,113 @@
         "title": "Baby Blues (American Pregnancy)",
         "url": "http://americanpregnancy.org/first-year-of-life/baby-blues/",
         "type": "guide",
-        "summary": "This page from the American Pregnancy Association explains postpartum baby blues, describing them as mood swings after childbirth that are the least severe form of postpartum depression. It emphasizes that these feelings are common and not something to be ashamed of, and encourages new mothers to talk about their emotional changes rather than ignore them."
+        "summary": "Postpartum mood disorders range from baby blues to postpartum depression and the rarer postpartum psychosis. Covers the spectrum of symptoms \u2014 from mild mood swings to persistent sadness, anxiety, intrusive thoughts, and inability to bond with the baby \u2014 plus risk factors, screening tools, treatment options including therapy and medication, and when to seek emergency help.",
+        "needs_detail_page": true
       },
       {
         "title": "Postpartum Mood Disorders (Best Start)",
         "url": "https://en.beststart.org/topics-tools/early-childhood-development/post-partum-mood-disorders",
         "type": "guide",
-        "summary": "This page on the Best Start resource website is currently broken and returns a database error (PDOException). The site is intended to provide information about postpartum mood disorders but is currently inaccessible due to a technical issue with the server."
+        "summary": "Postpartum care information from the Waterloo Region hospital network covering physical recovery after birth, what to expect in the first days and weeks, warning signs that require medical attention, and available postpartum support services in the local area.",
+        "needs_detail_page": false
       },
       {
         "title": "GRH \u2014 Postpartum Recovery",
         "url": "https://www.grhosp.on.ca/care/services-departments/childbirth/after-giving-birth/postpartum-care",
         "type": "external",
-        "summary": "This Grand River Hospital (GRH) page about postpartum care now redirects to the Waterloo Regional Health Network (WRHN) website. GRH and St. Mary's General Hospital have merged into WRHN, so the original postpartum care content is now hosted on the new WRHN site."
+        "summary": "A parent's guide to the Canadian childhood vaccination schedule, covering which vaccines are recommended at what ages, how vaccines work, the diseases they prevent, potential side effects, and the importance of following the immunization timeline to protect children from serious and potentially life-threatening illnesses.",
+        "needs_detail_page": true
       },
       {
         "title": "Guide to Vaccinations (Canada)",
         "url": "https://www.canada.ca/en/public-health/services/publications/healthy-living/parent-guide-vaccination.html",
         "type": "guide",
-        "summary": "This is a Government of Canada parent's guide to vaccinations, published by the Public Health Agency of Canada. The page content could not be retrieved (likely requires JavaScript rendering), but it is intended to help parents understand the vaccination schedule and importance of immunizing their children according to Canadian guidelines."
+        "summary": "The first six weeks after birth bring a wide range of feelings \u2014 elation, exhaustion, worry, and relief \u2014 all of which are normal. Midwives provide comprehensive care for both mother and baby for up to eight weeks postpartum, including physical recovery monitoring, breastfeeding support, newborn weight checks, and emotional wellbeing assessments during home and clinic visits.",
+        "needs_detail_page": false
       },
       {
         "title": "First 6 Weeks with Your Baby (Ontario Midwives)",
         "url": "https://www.ontariomidwives.ca/first-six-weeks",
         "type": "guide",
-        "summary": "This page from the Association of Ontario Midwives explains postpartum and newborn care during the first six weeks after birth. It acknowledges that this period can involve a wide range of feelings including elation, exhaustion, worry, and relief, all of which are normal. Midwives provide care for both mother and baby for up to eight weeks after birth."
+        "summary": "What to expect after giving birth at a Waterloo Region hospital, including immediate postpartum care, recovery milestones, newborn procedures, and discharge planning. Covers both vaginal and caesarean birth recovery timelines and when to seek medical help for postpartum complications.",
+        "needs_detail_page": false
       },
       {
         "title": "After Giving Birth \u2014 GRH",
         "url": "https://www.grhosp.on.ca/care/services-departments/childbirth/after-giving-birth",
         "type": "external",
-        "summary": "This Grand River Hospital page about after giving birth now redirects to the Waterloo Regional Health Network (WRHN) website. GRH and St. Mary's General Hospital have merged into WRHN, so the original childbirth and postpartum information is now available on the new WRHN site."
+        "summary": "The third stage of labour \u2014 from the birth of the baby to delivery of the placenta and membranes \u2014 is a critical but often under-discussed phase. A physiological (natural) third stage lets the placenta deliver on its own, which can take up to an hour. A managed third stage uses an oxytocin injection to speed placenta delivery and reduce bleeding risk. Both approaches have benefits and considerations depending on the birth situation.",
+        "needs_detail_page": true
       },
       {
         "title": "3rd Stage of Labour \u2014 Delivering the Placenta (NCT UK)",
         "url": "https://www.nct.org.uk/birth/third-stage-labour",
         "type": "guide",
-        "summary": "This NCT (UK parenting charity) page explains the third stage of labour, which is the period between the birth of the baby and the delivery of the placenta and membranes. It describes this as an important time when significant internal processes occur to protect the birthing person's health, and covers both physiological (natural) and managed (assisted) approaches to this stage."
+        "summary": "A presentation on the importance of early infant nutrition and how the first foods given to babies shape their long-term health. Note: the video title ('90 Seconds to Change the World' by Dr. Alan Greene) differs from the resource title about cord clamping \u2014 it focuses on changing how babies are fed starting with their first solid food rather than delayed cord clamping specifically.",
+        "needs_detail_page": false
       },
       {
         "title": "Delayed Cord Clamping (YouTube)",
         "url": "https://www.youtube.com/watch?v=Cw53X98EvLQ",
         "type": "video",
-        "summary": "This video is a TEDxBrussels talk by Dr. Alan Greene titled '90 seconds to change the world,' which focuses on his WhiteOut Now movement about changing how babies are fed starting with their first solid food. Note: The video title does not match the resource title about delayed cord clamping; it appears to be about infant nutrition rather than cord clamping."
+        "summary": "Midwives provide six weeks of postpartum care for both mother and baby, maintaining the same care relationship built during pregnancy and birth. Visits include physical recovery checks, breastfeeding support, newborn assessments, and emotional wellbeing monitoring \u2014 with the continuity of seeing familiar midwives who already know your history and preferences.",
+        "needs_detail_page": false
       },
       {
         "title": "Postpartum Care with a Midwife (YouTube)",
         "url": "https://youtu.be/3daz5baKGuo",
         "type": "video",
-        "summary": "This YouTube video by Ontario Midwives explains how midwives provide postpartum care to both mother and baby for six weeks after birth. Clients continue to see the same midwives who cared for them during pregnancy and birth, ensuring continuity of care during the postpartum period."
+        "summary": "What to expect from a newborn in the early days: feeding patterns (every 2\u20133 hours), sleep-wake cycles, normal breathing patterns, stool and urine output expectations, umbilical cord care, and how to tell if the baby is healthy and getting enough milk. Helps parents distinguish between normal newborn behaviours and signs that warrant medical attention.",
+        "needs_detail_page": true
       },
       {
         "title": "Normal Newborn Behaviour & Care (Ontario Midwives PDF)",
         "url": "https://www.ontariomidwives.ca/sites/default/files/Normal-newborn-behaviour-English.pdf",
         "type": "pdf",
-        "summary": "This is a PDF resource from the Association of Ontario Midwives about normal newborn behaviour and care. As a PDF document, the full text content could not be extracted, but it is designed to help new parents understand what to expect from their newborn's behaviour and how to provide appropriate care in the early days."
+        "summary": "Caring for your baby after leaving the hospital, covering umbilical cord care, diaper changing, feeding frequency expectations, safe sleep setup, when to call the doctor, and basic daily newborn care routines for the first weeks at home.",
+        "needs_detail_page": false
       },
       {
         "title": "Newborn Care \u2014 Video 1 (YouTube)",
         "url": "https://www.youtube.com/watch?v=NiUlNHGje6M",
         "type": "video",
-        "summary": "This YouTube video from Grand River Hospital (GRH) provides information on caring for your baby after your hospital stay is complete. It is part of GRH's childbirth education series offering guidance on newborn care for new parents."
+        "summary": "Step-by-step demonstration of giving a baby their first bath, including water temperature safety, how to support the baby, which areas to clean carefully, umbilical cord care around bath time, and how often newborns actually need bathing (less than you might think).",
+        "needs_detail_page": false
       },
       {
         "title": "Newborn Care \u2014 Video 2 (YouTube)",
         "url": "https://www.youtube.com/watch?v=aDNAUW52XIw",
         "type": "video",
-        "summary": "This YouTube video from Grand River Hospital (GRH) titled 'Baby's First Bath' provides tips on giving your baby a healthy bathing experience. It is part of GRH's specialized childbirth and children's services educational content for new parents."
+        "summary": "Blood glucose (sugar) is the main energy source for newborns, and in rare cases levels can drop too low (hypoglycemia), making the baby sick. Testing is common for babies at higher risk \u2014 those born to mothers with diabetes, born preterm, or born small or large for gestational age. Most low blood sugar resolves with early and frequent feeding, though some babies need IV glucose.",
+        "needs_detail_page": false
       },
       {
         "title": "Blood Sugar Testing in Newborns",
         "url": "http://www.caringforkids.cps.ca/handouts/blood_glucose_in_newborn_babies",
         "type": "guide",
-        "summary": "This Caring for Kids page (from the Canadian Paediatric Society) explains blood glucose monitoring in newborn babies. It covers what blood glucose is, why it's an important energy source for newborns, and how in rare cases blood glucose levels can fall too low and cause a baby to become sick, requiring medical attention."
+        "summary": "Ontario's newborn screening program uses a heel-prick blood test 24\u201348 hours after birth to check for rare but treatable conditions including metabolic disorders, endocrine disorders, blood disorders, and cystic fibrosis. Early detection through screening allows treatment to begin before symptoms cause irreversible damage. All babies born in Ontario are screened.",
+        "needs_detail_page": false
       },
       {
         "title": "Newborn Screening (Ontario)",
         "url": "http://www.newbornscreening.on.ca/bins/content_page.asp?cid=6&lang=1",
         "type": "external",
-        "summary": "This link to Newborn Screening Ontario returns a 404 error. The organization has launched a new website and the old page structure is no longer valid. Newborn Screening Ontario provides heel-prick screening tests for all babies born in Ontario to detect rare but treatable conditions."
+        "summary": "Newborn jaundice causes yellowing of the skin and eyes due to high bilirubin levels \u2014 produced when red blood cells break down and eliminated through stool and urine. It's very common, affecting about 60% of full-term and 80% of preterm babies in the first week. Most cases resolve on their own with frequent feeding, but high levels may require phototherapy (light treatment) to prevent brain damage.",
+        "needs_detail_page": true
       },
       {
         "title": "Jaundice in Newborns",
         "url": "http://www.caringforkids.cps.ca/handouts/jaundice_in_newborns",
         "type": "guide",
-        "summary": "This Caring for Kids page (from the Canadian Paediatric Society) explains jaundice in newborns, a condition where a baby's skin turns yellow due to high bilirubin levels. The page covers symptoms of jaundice, which is very common in newborns, and explains that bilirubin is produced when red blood cells break down and is eliminated through stool and urine."
+        "summary": "The Apgar score evaluates newborn health at 1 and 5 minutes after birth using five criteria: Appearance (skin colour), Pulse (heart rate), Grimace (reflex response), Activity (muscle tone), and Respiration (breathing). Each criterion is scored 0\u20132 for a maximum total of 10. Scores of 7\u201310 are normal, 4\u20136 may need some intervention, and 3 or below require immediate resuscitation.",
+        "needs_detail_page": false
       },
       {
         "title": "Apgar Score (Wikipedia)",
         "url": "https://en.wikipedia.org/wiki/Apgar_score",
         "type": "external",
-        "summary": "This Wikipedia article describes the Apgar score, a quick method developed in 1952 by anesthesiologist Virginia Apgar to evaluate the health of newborns at one and five minutes after birth, and in response to resuscitation. The score assesses five criteria \u2014 Appearance, Pulse, Grimace, Activity, and Respiration \u2014 each scored 0-2, for a maximum total of 10."
+        "summary": "The Apgar score evaluates newborns at 1 and 5 minutes after birth on five criteria: Appearance (skin colour), Pulse (heart rate), Grimace (reflex response), Activity (muscle tone), and Respiration (breathing). Each criterion scores 0-2 for a maximum of 10. Scores of 7+ are normal; below 7 may indicate the need for medical attention.",
+        "needs_detail_page": false
       }
     ],
     "images": [
@@ -1414,13 +1545,15 @@
         "title": "GRH Labour & Delivery Virtual Tour (YouTube)",
         "url": "https://youtu.be/Fxh1BT3AbFM",
         "type": "video",
-        "summary": "This YouTube video from Grand River Hospital (GRH) provides a pre-birth virtual tour of the labour and delivery facilities. It is part of GRH's childbirth services for residents of Ontario's Waterloo Region."
+        "summary": "Pre-registration paperwork for childbirth at Grand River Hospital, including personal and medical history forms, insurance information, consent documents, and birth plan preferences. Completing these forms in advance streamlines the admission process when you arrive in labour.",
+        "needs_detail_page": false
       },
       {
         "title": "Pre-Admit Registration Package (GRH PDF)",
         "url": "https://www.grhosp.on.ca/assets/documents/Registration-and-Referral-forms/PEM_20210728_ChildbirthPreRegistrationPackage.pdf",
         "type": "pdf",
-        "summary": "This link to the Grand River Hospital childbirth pre-registration package PDF now redirects to the Waterloo Regional Health Network (WRHN) website. The original GRH pre-admit registration forms are no longer accessible at this URL due to the merger of GRH and St. Mary's General Hospital into WRHN."
+        "summary": "The pre-admission registration package for Grand River Hospital must be completed before your delivery date. It includes personal information, health history, insurance/OHIP details, birth plan preferences, and emergency contacts. Submitting it in advance streamlines the admission process when you arrive in labour.",
+        "needs_detail_page": false
       }
     ],
     "images": [
@@ -1437,109 +1570,127 @@
         "title": "Car Seat Safety \u2014 Parachute Canada",
         "url": "http://www.parachutecanada.org/injury-topics/topic/C2",
         "type": "external",
-        "summary": "This Parachute Canada page covers car seat safety, providing information organized by audience type (parents/caregivers, health practitioners, road safety professionals) and age group (infants/toddlers, children, youth). Parachute is a national charitable organization dedicated to injury prevention, and this resource focuses on proper child restraint in vehicles."
+        "summary": "How to choose, install, and use child car seats and booster seats according to Canadian regulations. Includes recall notices for specific car seat models, safety testing standards, warnings about buying car seats online or across the US border (which may not meet Canadian standards), and the legal requirements for motor vehicle restraint systems for children.",
+        "needs_detail_page": false
       },
       {
         "title": "Child Car Seat Safety (Transport Canada)",
         "url": "https://www.tc.gc.ca/en/services/road/child-car-seat-safety.html",
         "type": "external",
-        "summary": "This Transport Canada page provides information on choosing and installing child car seats and booster seats. It includes recall notices, safety and testing information, warnings about buying car seats online, cross-border shopping considerations, and regulations governing motor vehicle restraint systems for children."
+        "summary": "Ontario-specific guidance on selecting the right car seat by age, weight, and developmental stage: rear-facing for infants, forward-facing with tether for toddlers, booster seats for children who have outgrown harnessed seats, and the transition to seat belts. Covers proper installation techniques, common mistakes, and when to move a child to the next stage.",
+        "needs_detail_page": false
       },
       {
         "title": "Choose the Right Car Seat (MTO)",
         "url": "http://www.mto.gov.on.ca/english/safety/choose-car-seat.shtml",
         "type": "external",
-        "summary": "This Ontario Ministry of Transportation page helps parents learn what child car seats are right for babies, toddlers, and small children, and how to install them properly. It provides guidance on choosing age- and size-appropriate car seats to keep children safe while travelling."
+        "summary": "All infants must use rear-facing car seats for optimal head, neck, and spine protection. Transition to forward-facing with a 5-point harness happens when the child outgrows the rear-facing seat by weight or height. Booster seats are needed until the child is at least 145 cm (4'9\") tall and can sit properly with the lap belt low across the hips and shoulder belt across the chest.",
+        "needs_detail_page": false
       },
       {
         "title": "Car Seat Safety (Caring for Kids)",
         "url": "http://www.caringforkids.cps.ca/handouts/car_seat_safety",
         "type": "guide",
-        "summary": "This Caring for Kids page (from the Canadian Paediatric Society) provides comprehensive car seat safety information for Canadian families. It explains that all infants must use rear-facing car seats for the best head, neck, and spine protection, and covers when to transition to forward-facing seats, booster seats, and ultimately seat belts."
+        "summary": "A consumer product safety guide for parents identifying potential hazards in the home \u2014 from nursery furniture and baby equipment to household products. Covers how to choose safe products, what to look for in safety standards, and which items have been recalled or flagged as dangerous for young children.",
+        "needs_detail_page": false
       },
       {
         "title": "Is Your Child Safe? (Health Canada)",
         "url": "https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/consumer-education/your-child-safe/is-your-child-safe.html",
         "type": "guide",
-        "summary": "This Health Canada page is part of the 'Is Your Child Safe?' series providing consumer product safety information for parents. The page content could not be retrieved (likely requires JavaScript rendering), but it is intended to help parents identify potential safety hazards in the home and keep children safe from consumer product risks."
+        "summary": "Safety guidelines for toys and play environments, covering age-appropriate toy selection, how to identify choking hazards, toy labelling requirements in Canada, dangerous toy characteristics to avoid, and creating safe play spaces at home and outdoors for children of different ages.",
+        "needs_detail_page": false
       },
       {
         "title": "Play Time Safety (Health Canada)",
         "url": "https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/consumer-education/your-child-safe/play-time.html",
         "type": "guide",
-        "summary": "This Health Canada page focuses on play time safety as part of the 'Is Your Child Safe?' consumer product safety series. The page content could not be retrieved (likely requires JavaScript rendering), but it is designed to help parents ensure toys and play environments are safe for children."
+        "summary": "Safety standards and guidelines for cribs, cradles, bassinets, and nursery products in Canada. Covers mattress firmness requirements, safe distance between crib slats, prohibited items (drop-side cribs, bumper pads), safe bedding practices, and how to ensure sleep products meet current Canadian safety regulations.",
+        "needs_detail_page": false
       },
       {
         "title": "Sleep Time Safety (Health Canada)",
         "url": "https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/consumer-education/your-child-safe/sleep-time.html",
         "type": "guide",
-        "summary": "This Health Canada page focuses on sleep time safety as part of the 'Is Your Child Safe?' consumer product safety series. The page content could not be retrieved (likely requires JavaScript rendering), but it is designed to help parents ensure safe sleep environments for infants and children, covering topics like cribs, bedding, and nursery product safety."
+        "summary": "Seasonal availability guide for Ontario-grown produce, helping families choose fresh, local food throughout the year. Shows what fruits and vegetables are in season each month, supports local farmers and businesses, and makes it easier to plan meals around locally available and affordable fresh ingredients.",
+        "needs_detail_page": false
       },
       {
         "title": "Foodland Ontario",
         "url": "https://www.ontario.ca/foodland/foodland-ontario",
         "type": "external",
-        "summary": "Foodland Ontario is a government program that helps consumers choose fresh food grown close to home while supporting local farmers and businesses. The website features information about what Ontario produce is in season throughout the year, helping families access locally-grown food."
+        "summary": "An online farmer's market serving the Kitchener-Waterloo and Stratford areas where you can order local produce and farm products online and pick up bi-weekly or arrange delivery. Provides convenient access to seasonal, locally-sourced food directly from farmers in the region.",
+        "needs_detail_page": false
       },
       {
         "title": "Bailey's Local Foods",
         "url": "http://www.baileyslocalfoods.com/",
         "type": "external",
-        "summary": "Bailey's Local Foods is an online farmer's market serving the Kitchener-Waterloo and Stratford areas. Orders are placed online with bi-weekly pickup or delivery options, making it convenient to buy local food directly from farmers."
+        "summary": "A Kitchener-Waterloo wellness studio offering an 8-week postpartum rehab class focused on foundational pelvic floor and core recovery after birth. Their upcoming classes and events page lists available programming for new and expecting parents, including prenatal and postnatal fitness options.",
+        "needs_detail_page": false
       },
       {
         "title": "Encompass Health \u2014 Prenatal Yoga",
         "url": "https://www.encompasshealth.ca/upcoming-classes-events",
         "type": "external",
-        "summary": "Encompass Health is a Kitchener-Waterloo wellness studio offering various classes including an 8-week postpartum rehab class focused on foundational recovery. The studio provides health and wellness services, and their upcoming classes and events page lists available programming for new and expecting parents."
+        "summary": "A yoga and strength training studio in Kitchener-Waterloo offering down-to-earth classes with options for both in-person and online participation. Their community-rooted approach includes classes accessible to all levels, making it a welcoming option for prenatal and postnatal movement.",
+        "needs_detail_page": false
       },
       {
         "title": "The Branches Yoga",
         "url": "https://thebranchesyoga.com/",
         "type": "external",
-        "summary": "The Branches Yoga is a yoga and strength training studio in Kitchener-Waterloo rooted in community values. They offer down-to-earth classes, expert teacher training, and an engaged intergenerational community, with options for both in-person and online participation."
+        "summary": "Adult outpatient mental health services available through the Waterloo Region hospital network, including counselling, psychiatric consultation, and addiction support. Accessible to community members including new parents experiencing postpartum mental health challenges or adjustment difficulties.",
+        "needs_detail_page": false
       },
       {
         "title": "GRH Mental Health & Addiction Services",
         "url": "http://www.grhosp.on.ca/care/services-departments/mental-health-addiction/adult-outpatient-mental-health",
         "type": "external",
-        "summary": "This Grand River Hospital page about adult outpatient mental health services now redirects to the Waterloo Regional Health Network (WRHN) website. GRH and St. Mary's General Hospital have merged into WRHN, so mental health and addiction service information is now available through the new WRHN site."
+        "summary": "Counselling and mental health services in the community, likely offering individual and possibly group therapy for concerns including postpartum depression, anxiety, and adjustment to new parenthood. (The website was unreachable at the time of checking.)",
+        "needs_detail_page": false
       },
       {
         "title": "Bliss Therapy",
         "url": "http://bliss-therapy.org/",
         "type": "external",
-        "summary": "This website (bliss-therapy.org) is currently unreachable \u2014 the connection timed out. The site was presumably a therapy practice offering counselling or mental health services in the community."
+        "summary": "An award-winning team of doulas, labour and delivery nurses, and former midwives offering comprehensive prenatal education and doula services in Waterloo Region. Childbirth classes cover labour preparation, pain management options, postpartum planning, and newborn care, with the philosophy that all families deserve access to quality education and support during pregnancy and birth.",
+        "needs_detail_page": false
       },
       {
         "title": "Balancing Birth Baby \u2014 Prenatal Classes",
         "url": "https://balancingbirthbaby.com/",
         "type": "external",
-        "summary": "Balancing Birth to Baby is an award-winning team of doulas, labour and delivery nurses, and former midwives offering prenatal education and doula services in Waterloo Region. They provide childbirth classes and birth support services, believing all families should have access to education and support during pregnancy and birth."
+        "summary": "Prenatal education with 20+ years of experience, taught by midwives, family doctors, and obstetricians. Classes focus on preparing for natural childbirth balanced with understanding medical interventions ('what ifs'). Small class sizes allow for personalized attention, with options for weeknight or weekend sessions in Guelph, Cambridge, and Kitchener.",
+        "needs_detail_page": false
       },
       {
         "title": "Tummies to Toes \u2014 Prenatal Classes",
         "url": "http://tummiestotoes.ca/",
         "type": "external",
-        "summary": "Tummies to Toes is a prenatal education and birth consultancy with over 20 years of experience, offering classes guided by midwives, family doctors, and obstetricians. They focus on natural childbirth balanced with preparation for medical interventions ('what ifs'), with small class sizes and options for weeknight or weekend classes in Guelph, Cambridge, and Kitchener."
+        "summary": "A Kitchener-Waterloo clinic specializing in pelvic floor physiotherapy for both men and women. Treats persistent pelvic pain, incontinence (common postpartum), painful intercourse, and painful bladder syndrome. Offers high-intensity electromagnetic therapy \u2014 a non-invasive treatment unique to the KW area \u2014 for pelvic floor strengthening without doing Kegels.",
+        "needs_detail_page": false
       },
       {
         "title": "KW Pelvic Health",
         "url": "https://kwpelvichealth.com/",
         "type": "external",
-        "summary": "KW Pelvic Health is a Kitchener-Waterloo clinic specializing in pelvic health treatment for both men and women. They treat conditions including persistent pelvic pain, incontinence, painful intercourse, and painful bladder syndrome, and offer high-intensity electromagnetic therapy \u2014 a service unique to the KW area."
+        "summary": "A Kitchener-Waterloo community organization helping mothers build social connections through programs for mothers and children aged 0\u20134. Connects members with local resources, businesses, and services while fostering supportive mom-to-mom relationships that ease the isolation many new parents experience.",
+        "needs_detail_page": false
       },
       {
         "title": "KW Moms Club",
         "url": "https://kwmomsclub.com/",
         "type": "external",
-        "summary": "KW Moms Club is a community organization in Kitchener-Waterloo that helps moms build their village through social and educational programs for mothers and their children aged 0-4. They connect members with local resources, businesses, and services to ease the parenting journey while fostering deep mom-to-mom connections."
+        "summary": "The portal for EarlyON Child and Family Centres in Waterloo Region and Stratford, providing free programs and services for families with children from birth to six years. Programs include play-based learning, parenting workshops, developmental screening, and community connections \u2014 all at no cost and open to any family in the area.",
+        "needs_detail_page": false
       },
       {
         "title": "Early Years Info",
         "url": "https://earlyyearsinfo.ca/",
         "type": "external",
-        "summary": "Early Years Info is the portal for EarlyON Child and Family Centres in Waterloo Region and the City of Stratford. These centres provide free programs and services for families with children from birth to six years old, including play-based learning, parenting workshops, and community connections."
+        "summary": "EarlyON centres across Waterloo Region offer free drop-in programs for children 0-6 and their caregivers: play-based learning, early literacy activities, parent workshops, developmental screening, and community connections. Programs run daily at locations throughout Kitchener, Waterloo, and Cambridge.",
+        "needs_detail_page": true
       }
     ],
     "images": []
@@ -1576,13 +1727,7 @@
         html += '<div class="section-header"><span class="section-number">' + numLabel + '</span>';
         html += '<h2 class="section-title">' + session.title + '</h2></div>';
 
-        if (session.images && session.images.length > 0) {
-          html += '<div class="section-images">';
-          session.images.forEach(function(img) {
-            html += '<img src="' + img + '" alt="" loading="lazy" class="section-img">';
-          });
-          html += '</div>';
-        }
+
 
         html += '<div class="resource-grid">';
         session.resources.forEach(function(res) {
@@ -1600,7 +1745,13 @@
             html += '<p class="resource-summary">' + res.summary + '</p>';
           }
           var linkText = res.type === 'pdf' ? 'Download PDF' : res.type === 'video' ? 'Watch on YouTube' : 'Visit Resource';
+          html += '<div class="resource-links">';
+          if (res.needs_detail_page) {
+            var secNum = session.number || (session.id === 'grh-forms' ? 'GRH' : 'CM');
+            html += '<a href="details/' + secNum + '-' + (session.resources.indexOf(res) + 1) + '.html" class="resource-link resource-detail-link">Read More →</a>';
+          }
           html += '<a href="' + res.url + '" target="_blank" rel="noopener" class="resource-link">' + linkText + ' →</a>';
+          html += '</div>';
           html += '</div></div>';
         });
         html += '</div>';
@@ -1778,6 +1929,17 @@
       initBackToTop();
       initSmoothScroll();
       document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+      // Desktop sidebar toggle
+      var sidebarToggle = document.getElementById('sidebarToggle');
+      if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', function() {
+          sidebar.classList.toggle('collapsed');
+          localStorage.setItem('bhm-sidebar-collapsed', sidebar.classList.contains('collapsed'));
+        });
+        if (localStorage.getItem('bhm-sidebar-collapsed') === 'true') {
+          sidebar.classList.add('collapsed');
+        }
+      }
       if (window.location.hash) {
         var target = document.querySelector(window.location.hash);
         if (target) setTimeout(function() { target.scrollIntoView({behavior: 'smooth'}); }, 100);
