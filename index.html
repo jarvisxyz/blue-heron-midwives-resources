@@ -8,6 +8,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦢</text></svg>">
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
   <style>
+
     /* ===== CSS Custom Properties ===== */
     :root {
       --color-bg: #f8f9fa;
@@ -424,82 +425,6 @@
       color: var(--color-text-muted);
     }
 
-    /* ===== Resource Cards ===== */
-    .resources-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    .resource-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 16px;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      text-decoration: none;
-      color: var(--color-text);
-      transition: all var(--transition-fast);
-    }
-    .resource-card:hover {
-      border-color: var(--color-primary);
-      box-shadow: var(--color-card-shadow-hover);
-      transform: translateY(-1px);
-    }
-    .resource-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-sm);
-      flex-shrink: 0;
-      font-size: 18px;
-    }
-    .resource-icon.pdf { background: var(--color-badge-pdf-bg); color: var(--color-badge-pdf); }
-    .resource-icon.video { background: var(--color-badge-video-bg); color: var(--color-badge-video); }
-    .resource-icon.guide { background: var(--color-badge-guide-bg); color: var(--color-badge-guide); }
-    .resource-icon.external { background: var(--color-badge-external-bg); color: var(--color-badge-external); }
-    .resource-icon.tool { background: var(--color-badge-tool-bg); color: var(--color-badge-tool); }
-    .resource-icon.document { background: var(--color-badge-document-bg); color: var(--color-badge-document); }
-    .resource-icon.article { background: var(--color-badge-article-bg); color: var(--color-badge-article); }
-    .resource-body { flex: 1; min-width: 0; }
-    .resource-title {
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 1.4;
-      margin-bottom: 4px;
-    }
-    .resource-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 8px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .resource-badge.pdf { background: var(--color-badge-pdf-bg); color: var(--color-badge-pdf); }
-    .resource-badge.video { background: var(--color-badge-video-bg); color: var(--color-badge-video); }
-    .resource-badge.guide { background: var(--color-badge-guide-bg); color: var(--color-badge-guide); }
-    .resource-badge.external { background: var(--color-badge-external-bg); color: var(--color-badge-external); }
-    .resource-badge.tool { background: var(--color-badge-tool-bg); color: var(--color-badge-tool); }
-    .resource-badge.document { background: var(--color-badge-document-bg); color: var(--color-badge-document); }
-    .resource-badge.article { background: var(--color-badge-article-bg); color: var(--color-badge-article); }
-    .resource-arrow {
-      color: var(--color-text-muted);
-      font-size: 18px;
-      flex-shrink: 0;
-      align-self: center;
-      transition: transform var(--transition-fast), color var(--transition-fast);
-    }
-    .resource-card:hover .resource-arrow {
-      color: var(--color-primary);
-      transform: translateX(2px);
-    }
 
     /* ===== Embedded Video ===== */
     .video-embed {
@@ -523,16 +448,98 @@
       border-top: 1px solid var(--color-border);
     }
 
-    /* ===== Images ===== */
-    .images-grid {
+    /* ===== Resource Grid ===== */
+    .resource-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
       margin-top: 20px;
     }
-    .images-grid img {
+    .resource-card {
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+    .resource-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--color-card-shadow-hover);
+      transform: translateY(-2px);
+    }
+    .resource-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .resource-top {
+      margin-bottom: 4px;
+    }
+    .resource-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .resource-title a {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+    .resource-title a:hover {
+      color: var(--color-primary);
+    }
+    .resource-link {
+      font-size: 13px;
+      color: var(--color-primary);
+      text-decoration: none;
+      margin-top: 4px;
+    }
+    .resource-link:hover {
+      text-decoration: underline;
+    }
+    .resource-meta {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    /* ===== Badges ===== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .badge-pdf { background: var(--color-badge-pdf-bg); color: var(--color-badge-pdf); }
+    .badge-video { background: var(--color-badge-video-bg); color: var(--color-badge-video); }
+    .badge-guide { background: var(--color-badge-guide-bg); color: var(--color-badge-guide); }
+    .badge-external { background: var(--color-badge-external-bg); color: var(--color-badge-external); }
+    .badge-tool { background: var(--color-badge-tool-bg); color: var(--color-badge-tool); }
+    .badge-document { background: var(--color-badge-document-bg); color: var(--color-badge-document); }
+    .badge-article { background: var(--color-badge-article-bg); color: var(--color-badge-article); }
+
+    /* ===== Section Images ===== */
+    .section-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+    .section-img {
       width: 100%;
       height: auto;
+      max-height: 260px;
+      object-fit: cover;
       border-radius: var(--radius-md);
       border: 1px solid var(--color-img-border);
       background: var(--color-surface);
@@ -691,536 +698,210 @@
       .main { margin-left: 0 !important; }
       .resource-card { break-inside: avoid; border: 1px solid #ccc !important; box-shadow: none !important; }
     }
+  
   </style>
 </head>
 <body>
-  <!-- Mobile Header -->
-  <header class="mobile-header">
-    <div class="mobile-logo">
-      <span class="mobile-logo-icon">🦢</span>
-      <span>Blue Heron Midwives</span>
+  <button id="hamburgerBtn" class="hamburger" aria-label="Open navigation">&#9776;</button>
+  <div id="mobileOverlay" class="mobile-overlay"></div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-logo">🦢</span>
+      <span class="sidebar-brand">Blue Heron Midwives</span>
     </div>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu">☰</button>
-  </header>
-  <div class="mobile-overlay" id="mobileOverlay"></div>
+    <nav class="sidebar-nav" aria-label="Section navigation">
+      <ul id="sidebarNav"></ul>
+    </nav>
+    <div class="sidebar-footer">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span id="themeIcon">🌙</span>
+        <span id="themeLabel">Dark Mode</span>
+      </button>
+    </div>
+  </aside>
 
-  <div class="layout">
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="sidebar-logo">
-          <span class="sidebar-logo-icon">🦢</span>
-          <span class="sidebar-logo-text">Blue Heron Midwives</span>
-        </div>
-        <div class="sidebar-subtitle">Connecting Pregnancy Program Resources</div>
+  <main id="mainContent">
+    <div class="hero">
+      <div class="hero-inner">
+        <h1>Connecting Pregnancy Program Resources</h1>
+        <p>Curated resources for every stage of your pregnancy journey — from nutrition and exercise through labour, birth, and postpartum recovery. Brought to you by Blue Heron Midwives.</p>
       </div>
-      <nav class="sidebar-nav" aria-label="Section navigation">
-        <ul class="sidebar-nav-list" id="sidebarNav"></ul>
-      </nav>
-      <div class="sidebar-footer">
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-          <span class="theme-toggle-icon" id="themeIcon">🌙</span>
-          <span id="themeLabel">Dark Mode</span>
-        </button>
+    </div>
+
+    <div class="search-container">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="search" id="searchInput" class="search-input" placeholder="Search resources..." aria-label="Search resources">
       </div>
-    </aside>
+    </div>
 
-    <!-- Main -->
-    <main class="main" id="mainContent">
-      <div class="hero">
-        <div class="hero-inner">
-          <h1>Connecting Pregnancy Program Resources</h1>
-          <p>Curated resources for every stage of your pregnancy journey — from nutrition and exercise through labour, birth, and postpartum recovery. Brought to you by Blue Heron Midwives.</p>
-        </div>
-      </div>
+    <div id="contentArea"></div>
 
-      <div class="search-container">
-        <div class="search-box">
-          <span class="search-icon">🔍</span>
-          <input type="search" class="search-input" id="searchInput" placeholder="Search resources..." autocomplete="off" aria-label="Search resources">
-        </div>
-        <div class="search-results" id="searchResults"></div>
-      </div>
+    <footer class="site-footer">
+      <p>Blue Heron Midwives — Connecting Pregnancy Program ·
+        <a href="https://bhmconnectingpregnancy.weebly.com" target="_blank" rel="noopener">Original Site</a> ·
+        <a href="https://www.youtube.com/playlist?list=PLU12x9ylK9N8gDp-LVlNnH-vcF1mAGwFF" target="_blank" rel="noopener">YouTube Playlist</a>
+      </p>
+    </footer>
+  </main>
 
-      <div id="sectionsContainer"></div>
-
-      <!-- YouTube Playlist Section -->
-      <div id="playlistContainer"></div>
-
-      <footer class="site-footer">
-        <p>Blue Heron Midwives — Connecting Pregnancy Program &nbsp;·&nbsp; <a href="https://bhmconnectingpregnancy.weebly.com" target="_blank" rel="noopener">Original Site</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/playlist?list=PLU12x9ylK9N8gDp-LVlNnH-vcF1mAGwFF" target="_blank" rel="noopener">YouTube Playlist</a></p>
-      </footer>
-    </main>
-  </div>
-
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
 
   <script>
-    // ===== DATA =====
-    const DATA = {
-      sessions: [
-        {
-          id: "session-1", number: 1, title: "Healthy Eating for a Healthy Pregnancy",
-          page_url: "https://bhmconnectingpregnancy.weebly.com/session-1-3.html",
-          resources: [
-            {title:"Dr. Joanna Thiessen — George St. Naturopathic",url:"https://georgestreetnaturopathic.com/",type:"external"},
-            {title:"Jo's Presentation (YouTube)",url:"https://youtu.be/B6YAHIydY_Q",type:"video"},
-            {title:"The Healthy Pregnancy Guide (PHAC PDF)",url:"https://www.canada.ca/content/dam/phac-aspc/documents/services/health-promotion/healthy-pregnancy/64-03-16-1758-Sensible%20Guide%20to%20Healthy%20Pregnancy-EN-Web-final-v3.pdf",type:"pdf"},
-            {title:"Canada's Food Guide",url:"https://food-guide.canada.ca/en/",type:"external"},
-            {title:"Pregnancy Weight Gain Calculator",url:"https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/prenatal-nutrition/pregnancy-weight-gain-calculator.html",type:"tool"},
-            {title:"Pregnancy Personalized Calendar",url:"https://www.babycenter.ca/pregnancy-calendar",type:"tool"},
-            {title:"Healthy Living, Healthy Pregnancy",url:"http://www.hc-sc.gc.ca/hl-vs/preg-gros/index-eng.php",type:"external"},
-            {title:"Eating for a Healthy Pregnancy (UnlockFood)",url:"https://www.unlockfood.ca/en/Articles/Pregnancy/Eating-for-a-Healthy-Pregnancy.aspx",type:"article"},
-            {title:"Gestational Diabetes (Diabetes Canada)",url:"https://www.diabetes.ca/about-diabetes/gestational",type:"external"},
-            {title:"Getting to Know the Glycemic Index",url:"http://www.eatrightontario.ca/en/Articles/Carbohydrate/Getting-to-know-the-Glycemic-Index.aspx",type:"article"},
-            {title:"Eating Fish during Pregnancy (Mercury)",url:"https://www.canada.ca/en/health-canada/services/food-nutrition/food-safety/chemical-contaminants/environmental-contaminants/mercury/mercury-fish.html",type:"guide"},
-            {title:"Safe Food Handling for Pregnant Women",url:"https://www.canada.ca/en/health-canada/services/food-safety-vulnerable-populations/food-safety-pregnant-women.html",type:"guide"},
-            {title:"Iron Deficiency Anemia (Ontario Midwives)",url:"https://www.ontariomidwives.ca/anemia",type:"external"},
-            {title:"Use of Cannabis during Pregnancy and Breastfeeding",url:"https://www.pregnancyinfo.ca/learn-more/",type:"guide"},
-            {title:"Not Just a Herb (YouTube)",url:"https://www.youtube.com/watch?v=hxU5fBsmpKo",type:"video"},
-            {title:"Times Have Changed (SOGC)",url:"https://sogc.us1.list-manage.com/track/click?u=734c42549aac83f0994775df6&id=2cad8c09e2&e=c61799a8b3",type:"article"},
-            {title:"Session 1 Handout (DOCX)",url:"https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/session_1.docx",type:"document"}
-          ],
-          images: [
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/9375257.gif",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/canada-food-guide-2019.png",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/eating-for-a-healthy-pregnancy-resized.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/iron-deficiency-anemia.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/cannabis-bucket1.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/cannabis-bucket3.jpg"
-          ]
-        },
-        {
-          id: "session-2", number: 2, title: "Exercise & Common Discomforts in Pregnancy",
-          page_url: "https://bhmconnectingpregnancy.weebly.com/session-1-3.html",
-          resources: [
-            {title:"Dr. Nicole or Dr. Jill — Awaken Chiropractic",url:"http://www.awakenchirokw.com/",type:"external"},
-            {title:"Comfortable Pregnancy (Region of Waterloo PDF)",url:"https://www.regionofwaterloo.ca/en/health-and-wellness/resources/Documents/PromotingComfortablePregnancy.pdf",type:"pdf"},
-            {title:"Exercise during Pregnancy",url:"https://www.pregnancyinfo.ca/your-pregnancy/healthy-pregnancy/exercise-during-pregnancy/",type:"guide"},
-            {title:"Active Living & Pregnancy (Region of Waterloo PDF)",url:"https://www.regionofwaterloo.ca/en/health-and-wellness/resources/Documents/ActiveLiving_Pregnancy.pdf",type:"pdf"},
-            {title:"Weight Gain during Pregnancy",url:"https://www.pregnancyinfo.ca/your-pregnancy/healthy-pregnancy/weight-gain-during-pregnancy/",type:"guide"},
-            {title:"Preterm Labour — Public Health",url:"https://www.regionofwaterloo.ca/en/health-and-wellness/healthy-pregnancy.aspx#Prevent-preterm-birth",type:"external"},
-            {title:"Preterm Labour (SOGC)",url:"https://www.pregnancyinfo.ca/birth/special-considerations/preterm-labour/",type:"guide"},
-            {title:"Preterm Labour Booklet (Best Start PDF)",url:"https://resources.beststart.org/wp-content/uploads/2018/12/E06-E.pdf",type:"pdf"},
-            {title:"Work & Pregnancy Do Mix (Best Start PDF)",url:"http://beststart.org/resources/wrkplc_health/pdf/preg_work_8p_book_rev09.pdf",type:"pdf"},
-            {title:"Working During Pregnancy",url:"https://www.pregnancyinfo.ca/your-pregnancy/healthy-pregnancy/working-during-pregnancy/",type:"guide"},
-            {title:"Employment Insurance Benefits (Maternity/Parental)",url:"https://www.canada.ca/en/services/benefits/ei/ei-maternity-parental.html",type:"guide"},
-            {title:"Awaken Chiropractic Presentation (PDF)",url:"https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/pdf_awaken_chiropractic_pregnancy_and_exercise.pdf",type:"pdf"}
-          ],
-          images: ["https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/awaken-chiropractic-1st-slide.jpg"]
-        },
-        {
-          id: "session-3", number: 3, title: "Emotional Changes in Pregnancy, Stages of Labour, Normal Birth",
-          page_url: "https://bhmconnectingpregnancy.weebly.com/session-1-3.html",
-          resources: [
-            {title:"ALPHA Self-Report Questionnaire (PDF)",url:"http://womanabuse.webcanvas.ca/documents/alpha_self_report.pdf",type:"pdf"},
-            {title:"Emotional Changes in Pregnancy (Region of Waterloo PDF)",url:"https://www.regionofwaterloo.ca/en/health-and-wellness/resources/Documents/EmotionalHealth_Pregnancy.pdf",type:"pdf"},
-            {title:"Depression & Pregnancy (PHAC)",url:"http://www.phac-aspc.gc.ca/mh-sm/preg_dep-eng.php",type:"guide"},
-            {title:"Mental Health during Pregnancy",url:"https://www.healthyparentshealthychildren.ca/im-pregnant/overview-of-pregnancy/mental-health/",type:"guide"},
-            {title:"Homebirth (Ontario Midwives)",url:"https://www.ontariomidwives.ca/home-birth",type:"external"},
-            {title:"Water Birth (FAQs)",url:"http://waterbirth.org/faqs/",type:"external"},
-            {title:"Hospital Birth (Ontario Midwives)",url:"https://www.ontariomidwives.ca/why-give-birth-hospital",type:"external"},
-            {title:"Normal Childbirth",url:"https://www.pregnancyinfo.ca/birth/delivery/normal-childbirth/",type:"guide"},
-            {title:"Stages of Labour (The Women's Hospital)",url:"https://www.thewomens.org.au/health-information/pregnancy-and-birth/labour-birth/stages-of-labour/",type:"guide"},
-            {title:"Preparing for Labour (The Women's Hospital)",url:"https://www.thewomens.org.au/health-information/pregnancy-and-birth/labour-birth/preparing-for-labour/",type:"guide"},
-            {title:"Birth with a Midwife (Ontario Midwives)",url:"https://www.ontariomidwives.ca/giving-birth",type:"external"}
-          ],
-          images: [
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/normal-birth-sogc.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/6404154.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/download.jpg"
-          ]
-        },
-        {
-          id: "session-4", number: 4, title: "Natural Pain Management in Labour",
-          page_url: "https://bhmconnectingpregnancy.weebly.com/session-4-5.html",
-          resources: [
-            {title:"What is a Doula? (DONA)",url:"http://www.dona.org/mothers/index.php",type:"external"},
-            {title:"Doula FAQs (DONA)",url:"http://www.dona.org/mothers/faqs_birth.php",type:"external"},
-            {title:"Perineal Massage (SCBP PDF)",url:"https://scbp.ca/assets/documents/5_1_Perineal_massage_in_pregnancy.pdf",type:"pdf"},
-            {title:"Comfort in Labour (Simkin PDF)",url:"https://www.kingstonmidwives.ca/userfiles/html_file/comfort-in-labor-simkin.pdf",type:"pdf"},
-            {title:"Birth Box & TENS Rental",url:"https://balancingbirthbaby.com/shop/",type:"external"},
-            {title:"Natural Pain Management Kit",url:"https://balancingbirthbaby.com/product/natural-pain-management/",type:"external"},
-            {title:"Birth Ball (YouTube)",url:"https://www.youtube.com/watch?v=T8UKDfluF9E",type:"video"},
-            {title:"Support Techniques During Labour (YouTube)",url:"https://www.youtube.com/watch?v=7v-iJKBR3LM",type:"video"},
-            {title:"Comfort Measures for Labour (YouTube)",url:"https://www.youtube.com/watch?v=jw94EyVz3Rw",type:"video"},
-            {title:"Tips for Partners During Labour (NHS UK)",url:"https://www.nhs.uk/pregnancy/labour-and-birth/what-happens/tips-for-your-birth-partner/#close",type:"guide"}
-          ],
-          images: [
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/birth-box.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/childbirth-pain-management-class-kitchener-1-1024x1024.png",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/early-labour.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/npm-shower.webp",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/lunge.jpg"
-          ]
-        },
-        {
-          id: "session-5", number: 5, title: "Complications",
-          page_url: "https://bhmconnectingpregnancy.weebly.com/session-4-5.html",
-          resources: [
-            {title:"Caesarean Section",url:"https://www.pregnancyinfo.ca/birth/delivery/caesarean-section/",type:"guide"},
-            {title:"VBAC (Ontario Midwives PDF)",url:"https://www.ontariomidwives.ca/sites/default/files/Thinking-about-VBAC-English_1.pdf",type:"pdf"},
-            {title:"Vaginal Birth & Interventions at GRH",url:"https://www.grhosp.on.ca/care/services-departments/childbirth/labour-and-delivery/vaginal-birth",type:"external"},
-            {title:"Breech Birth",url:"https://www.pregnancyinfo.ca/birth/delivery/breech-childbirth/",type:"guide"},
-            {title:"Medical Pain Management Options",url:"https://www.pregnancyinfo.ca/birth/labour/pain-management/pain-management-with-medications/",type:"guide"},
-            {title:"Induction (BabyCenter)",url:"http://www.babycenter.ca/a173/induced-labour-101",type:"guide"},
-            {title:"If You Go Past 40 Weeks (Ontario Midwives PDF)",url:"https://www.ontariomidwives.ca/sites/default/files/2017-10/In-due-time-pregnancy-beyond-40-English.pdf",type:"pdf"},
-            {title:"Group B Strep Screening",url:"https://www.pregnancyinfo.ca/your-pregnancy/routine-tests/group-b-streptococcus-screening/",type:"guide"},
-            {title:"Assisted Delivery (Vacuum & Forceps)",url:"https://www.pregnancyinfo.ca/birth/delivery/vacuum-and-forceps-assisted-birth/",type:"guide"},
-            {title:"Fetal Monitoring and Surveillance",url:"https://www.pregnancyinfo.ca/birth/labour/fetal-monitoring-and-surveillance-intermittent-auscultation-efm/",type:"guide"},
-            {title:"If Your Water Breaks Before Labour (Ontario Midwives PDF)",url:"https://www.ontariomidwives.ca/sites/default/files/2020-06/When-your-water-breaks-before-labour-English.pdf",type:"pdf"}
-          ],
-          images: [
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/brain.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/fetal-monitoring.jpg"
-          ]
-        },
-        {
-          id: "session-6", number: 6, title: "Baby Care and Breastfeeding",
-          page_url: "https://bhmconnectingpregnancy.weebly.com/session-6-7.html",
-          resources: [
-            {title:"Breastfeeding Buddies",url:"https://www.breastfeedingbuddies.com/",type:"external"},
-            {title:"Breastfeeding — Public Health Canada",url:"http://www.phac-aspc.gc.ca/hp-ps/dca-dea/stages-etapes/childhood-enfance_0-2/nutrition/index-eng.php",type:"guide"},
-            {title:"10 Tips for Successful Breastfeeding",url:"https://www.canada.ca/en/public-health/services/health-promotion/childhood-adolescence/stages-childhood/infancy-birth-two-years/breastfeeding-infant-nutrition/valuable-tips-successful-breastfeeding.html",type:"guide"},
-            {title:"10 Great Reasons to Breastfeed",url:"https://www.canada.ca/en/public-health/services/health-promotion/childhood-adolescence/stages-childhood/infancy-birth-two-years/breastfeeding-infant-nutrition/10-great-reasons-breastfeed-your-baby.html",type:"guide"},
-            {title:"Breastfeeding Information Sheets (IBC)",url:"http://ibconline.ca/information-sheets/",type:"external"},
-            {title:"International Breastfeeding Centre",url:"http://ibconline.ca/",type:"external"},
-            {title:"Breastfeeding Videos (IBC)",url:"http://ibconline.ca/breastfeeding-videos-2/",type:"video"},
-            {title:"What? Me Breastfeed? Workshops",url:"https://www.breastfeedingbuddies.com/neve-home/about-services/me-breastfeed-workshop/",type:"external"},
-            {title:"Public Health Breastfeeding YouTube Playlist",url:"https://www.youtube.com/playlist?list=PLownsWVDAO4x50Cm-X5EQ69L0elZ_UVXh",type:"video"},
-            {title:"New Dad Manual",url:"https://newdadmanual.wordpress.com/",type:"external"},
-            {title:"Postpartum Planning (Balancing Birth Baby)",url:"https://balancingbirthbaby.com/planning-post-partum/",type:"guide"},
-            {title:"Dad Central",url:"http://www.dadcentral.ca/",type:"external"},
-            {title:"Infant Safety Workshop",url:"https://balancingbirthbaby.com/education/infant-safety/",type:"external"},
-            {title:"Safe Sleep Guidelines (Canada PDF)",url:"https://www.canada.ca/content/dam/phac-aspc/documents/services/health-promotion/childhood-adolescence/stages-childhood/infancy-birth-two-years/safe-sleep/safe-sleep-your-baby-brochure/safe-sleep.pdf",type:"pdf"}
-          ],
-          images: [
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/7417127.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/newborn-class-1024x683.png",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/dad.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/infant-safety-workshop-1024x576.png",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/safe-sleep.jpg"
-          ]
-        },
-        {
-          id: "session-7", number: 7, title: "Postpartum Recovery and When to Worry",
-          page_url: "https://bhmconnectingpregnancy.weebly.com/session-6-7.html",
-          resources: [
-            {title:"Baby Blues (American Pregnancy)",url:"http://americanpregnancy.org/first-year-of-life/baby-blues/",type:"guide"},
-            {title:"Postpartum Mood Disorders (Best Start)",url:"https://en.beststart.org/topics-tools/early-childhood-development/post-partum-mood-disorders",type:"guide"},
-            {title:"GRH — Postpartum Recovery",url:"https://www.grhosp.on.ca/care/services-departments/childbirth/after-giving-birth/postpartum-care",type:"external"},
-            {title:"Guide to Vaccinations (Canada)",url:"https://www.canada.ca/en/public-health/services/publications/healthy-living/parent-guide-vaccination.html",type:"guide"},
-            {title:"First 6 Weeks with Your Baby (Ontario Midwives)",url:"https://www.ontariomidwives.ca/first-six-weeks",type:"guide"},
-            {title:"After Giving Birth — GRH",url:"https://www.grhosp.on.ca/care/services-departments/childbirth/after-giving-birth",type:"external"},
-            {title:"3rd Stage of Labour — Delivering the Placenta (NCT UK)",url:"https://www.nct.org.uk/birth/third-stage-labour",type:"guide"},
-            {title:"Delayed Cord Clamping (YouTube)",url:"https://www.youtube.com/watch?v=Cw53X98EvLQ",type:"video"},
-            {title:"Postpartum Care with a Midwife (YouTube)",url:"https://youtu.be/3daz5baKGuo",type:"video"},
-            {title:"Normal Newborn Behaviour & Care (Ontario Midwives PDF)",url:"https://www.ontariomidwives.ca/sites/default/files/Normal-newborn-behaviour-English.pdf",type:"pdf"},
-            {title:"Newborn Care — Video 1 (YouTube)",url:"https://www.youtube.com/watch?v=NiUlNHGje6M",type:"video"},
-            {title:"Newborn Care — Video 2 (YouTube)",url:"https://www.youtube.com/watch?v=aDNAUW52XIw",type:"video"},
-            {title:"Blood Sugar Testing in Newborns",url:"http://www.caringforkids.cps.ca/handouts/blood_glucose_in_newborn_babies",type:"guide"},
-            {title:"Newborn Screening (Ontario)",url:"http://www.newbornscreening.on.ca/bins/content_page.asp?cid=6&lang=1",type:"external"},
-            {title:"Jaundice in Newborns",url:"http://www.caringforkids.cps.ca/handouts/jaundice_in_newborns",type:"guide"},
-            {title:"Apgar Score (Wikipedia)",url:"https://en.wikipedia.org/wiki/Apgar_score",type:"external"}
-          ],
-          images: [
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/baby-blues.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/grh-ppd.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/ppd.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/parentsguide-to-vaccination.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/dreamstime-l-41859947.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/3rd-stage-of-labour-delivering-placenta.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/delayed-cord-clamping-video.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/pp-care-with-mw-video.png",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/newborn-screen.jpg",
-            "https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/apgar.jpg"
-          ]
-        },
-        {
-          id: "grh-forms", number: 0, title: "GRH Pre-Admit Forms",
-          page_url: "https://bhmconnectingpregnancy.weebly.com/grh-pre-admit-forms.html",
-          resources: [
-            {title:"GRH Labour & Delivery Virtual Tour (YouTube)",url:"https://youtu.be/Fxh1BT3AbFM",type:"video"},
-            {title:"Pre-Admit Registration Package (GRH PDF)",url:"https://www.grhosp.on.ca/assets/documents/Registration-and-Referral-forms/PEM_20210728_ChildbirthPreRegistrationPackage.pdf",type:"pdf"}
-          ],
-          images: ["https://bhmconnectingpregnancy.weebly.com/uploads/7/4/0/7/7407608/grh-logo.jpg"]
-        },
-        {
-          id: "community", number: 0, title: "Community Resources & Newborn Info",
-          page_url: "https://bhmconnectingpregnancy.weebly.com/community-resources--newborn-info.html",
-          resources: [
-            {title:"Car Seat Safety — Parachute Canada",url:"http://www.parachutecanada.org/injury-topics/topic/C2",type:"external"},
-            {title:"Child Car Seat Safety (Transport Canada)",url:"https://www.tc.gc.ca/en/services/road/child-car-seat-safety.html",type:"external"},
-            {title:"Choose the Right Car Seat (MTO)",url:"http://www.mto.gov.on.ca/english/safety/choose-car-seat.shtml",type:"external"},
-            {title:"Car Seat Safety (Caring for Kids)",url:"http://www.caringforkids.cps.ca/handouts/car_seat_safety",type:"guide"},
-            {title:"Is Your Child Safe? (Health Canada)",url:"https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/consumer-education/your-child-safe/is-your-child-safe.html",type:"guide"},
-            {title:"Play Time Safety (Health Canada)",url:"https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/consumer-education/your-child-safe/play-time.html",type:"guide"},
-            {title:"Sleep Time Safety (Health Canada)",url:"https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/consumer-education/your-child-safe/sleep-time.html",type:"guide"},
-            {title:"Foodland Ontario",url:"https://www.ontario.ca/foodland/foodland-ontario",type:"external"},
-            {title:"Bailey's Local Foods",url:"http://www.baileyslocalfoods.com/",type:"external"},
-            {title:"Encompass Health — Prenatal Yoga",url:"https://www.encompasshealth.ca/upcoming-classes-events",type:"external"},
-            {title:"The Branches Yoga",url:"https://thebranchesyoga.com/",type:"external"},
-            {title:"GRH Mental Health & Addiction Services",url:"http://www.grhosp.on.ca/care/services-departments/mental-health-addiction/adult-outpatient-mental-health",type:"external"},
-            {title:"Bliss Therapy",url:"http://bliss-therapy.org/",type:"external"},
-            {title:"Balancing Birth Baby — Prenatal Classes",url:"https://balancingbirthbaby.com/",type:"external"},
-            {title:"Tummies to Toes — Prenatal Classes",url:"http://tummiestotoes.ca/",type:"external"},
-            {title:"KW Pelvic Health",url:"https://kwpelvichealth.com/",type:"external"},
-            {title:"KW Moms Club",url:"https://kwmomsclub.com/",type:"external"},
-            {title:"Early Years Info",url:"https://earlyyearsinfo.ca/",type:"external"}
-          ],
-          images: []
-        }
-      ],
-      youtube_playlist: {
-        id: "PLU12x9ylK9N8gDp-LVlNnH-vcF1mAGwFF",
-        url: "https://www.youtube.com/playlist?list=PLU12x9ylK9N8gDp-LVlNnH-vcF1mAGwFF",
-        videos: [
-          {title:"Reflections of Motherhood",url:"https://www.youtube.com/watch?v=taDqKWWPDAY",channel:"Scott Stratten"},
-          {title:"How to Properly Buckle Your Baby into the Car Seat",url:"https://www.youtube.com/watch?v=REbyw_6mbnI",channel:"readysetbabybook"},
-          {title:"The Performance",url:"https://www.youtube.com/watch?v=lZG0T7xHy6A",channel:"FreedomForBirth"}
-        ]
-      }
-    };
+    var SESSIONS = [{"id": "session-1", "number": 1, "title": "Healthy Eating for a Healthy Pregnancy", "page_url": "https://bhmconnectingpregnancy.weebly.com/session-1-3.html", "resources": [{"title": "Dr. Joanna Thiessen \u2014 George St. Naturopathic", "url": "https://georgestreetnaturopathic.com/", "type": "external"}, {"title": "Jo's Presentation (YouTube)", "url": "https://youtu.be/B6YAHIydY_Q", "type": "video"}, {"title": "The Healthy Pregnancy Guide (PHAC PDF)", "url": "https://www.canada.ca/content/dam/phac-aspc/documents/services/health-promotion/healthy-pregnancy/64-03-16-1758-Sensible%20Guide%20to%20Healthy%20Pregnancy-EN-Web-final-v3.pdf", "type": "pdf"}, {"title": "Canada's Food Guide", "url": "https://food-guide.canada.ca/en/", "type": "external"}, {"title": "Pregnancy Weight Gain Calculator", "url": "https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/prenatal-nutrition/pregnancy-weight-gain-calculator.html", "type": "tool"}, {"title": "Pregnancy Personalized Calendar", "url": "https://www.babycenter.ca/pregnancy-calendar", "type": "tool"}, {"title": "Healthy Living, Healthy Pregnancy", "url": "http://www.hc-sc.gc.ca/hl-vs/preg-gros/index-eng.php", "type": "external"}, {"title": "Eating for a Healthy Pregnancy (UnlockFood)", "url": "https://www.unlockfood.ca/en/Articles/Pregnancy/Eating-for-a-Healthy-Pregnancy.aspx", "type": "article"}, {"title": "Gestational Diabetes (Diabetes Canada)", "url": "https://www.diabetes.ca/about-diabetes/gestational", "type": "external"}, {"title": "Getting to Know the Glycemic Index", "url": "http://www.eatrightontario.ca/en/Articles/Carbohydrate/Getting-to-know-the-Glycemic-Index.aspx", "type": "article"}, {"title": "Eating Fish during Pregnancy (Mercury)", "url": "https://www.canada.ca/en/health-canada/services/food-nutrition/food-safety/chemical-contaminants/environmental-contaminants/mercury/mercury-fish.html", "type": "guide"}, {"title": "Safe Food Handling for Pregnant Women", "url": "https://www.canada.ca/en/health-canada/services/food-safety-vulnerable-populations/food-safety-pregnant-women.html", "type": "guide"}, {"title": "Iron Deficiency Anemia (Ontario Midwives)", "url": "https://www.ontariomidwives.ca/anemia", "type": "external"}, {"title": "Use of Cannabis during Pregnancy and Breastfeeding", "url": "https://www.pregnancyinfo.ca/learn-more/", "type": "guide"}, {"title": "Not Just a Herb (YouTube)", "url": "https://www.youtube.com/watch?v=hxU5fBsmpKo", "type": "video"}, {"title": "Times Have Changed (SOGC)", "url": "https://sogc.us1.list-manage.com/track/click?u=734c42549aac83f0994775df6&id=2cad8c09e2&e=c61799a8b3", "type": "article"}, {"title": "Session 1 Handout (DOCX)", "url": "assets/images/session_1.docx", "type": "document"}], "images": ["assets/images/9375257.gif", "assets/images/canada-food-guide-2019.png", "assets/images/eating-for-a-healthy-pregnancy-resized.jpg", "assets/images/iron-deficiency-anemia.jpg", "assets/images/cannabis-bucket1.jpg", "assets/images/cannabis-bucket3.jpg"]}, {"id": "session-2", "number": 2, "title": "Exercise & Common Discomforts in Pregnancy", "page_url": "https://bhmconnectingpregnancy.weebly.com/session-1-3.html", "resources": [{"title": "Dr. Nicole or Dr. Jill \u2014 Awaken Chiropractic", "url": "http://www.awakenchirokw.com/", "type": "external"}, {"title": "Comfortable Pregnancy (Region of Waterloo PDF)", "url": "https://www.regionofwaterloo.ca/en/health-and-wellness/resources/Documents/PromotingComfortablePregnancy.pdf", "type": "pdf"}, {"title": "Exercise during Pregnancy", "url": "https://www.pregnancyinfo.ca/your-pregnancy/healthy-pregnancy/exercise-during-pregnancy/", "type": "guide"}, {"title": "Active Living & Pregnancy (Region of Waterloo PDF)", "url": "https://www.regionofwaterloo.ca/en/health-and-wellness/resources/Documents/ActiveLiving_Pregnancy.pdf", "type": "pdf"}, {"title": "Weight Gain during Pregnancy", "url": "https://www.pregnancyinfo.ca/your-pregnancy/healthy-pregnancy/weight-gain-during-pregnancy/", "type": "guide"}, {"title": "Preterm Labour \u2014 Public Health", "url": "https://www.regionofwaterloo.ca/en/health-and-wellness/healthy-pregnancy.aspx#Prevent-preterm-birth", "type": "external"}, {"title": "Preterm Labour (SOGC)", "url": "https://www.pregnancyinfo.ca/birth/special-considerations/preterm-labour/", "type": "guide"}, {"title": "Preterm Labour Booklet (Best Start PDF)", "url": "https://resources.beststart.org/wp-content/uploads/2018/12/E06-E.pdf", "type": "pdf"}, {"title": "Work & Pregnancy Do Mix (Best Start PDF)", "url": "http://beststart.org/resources/wrkplc_health/pdf/preg_work_8p_book_rev09.pdf", "type": "pdf"}, {"title": "Working During Pregnancy", "url": "https://www.pregnancyinfo.ca/your-pregnancy/healthy-pregnancy/working-during-pregnancy/", "type": "guide"}, {"title": "Employment Insurance Benefits (Maternity/Parental)", "url": "https://www.canada.ca/en/services/benefits/ei/ei-maternity-parental.html", "type": "guide"}, {"title": "Awaken Chiropractic Presentation (PDF)", "url": "assets/images/pdf_awaken_chiropractic_pregnancy_and_exercise.pdf", "type": "pdf"}], "images": ["assets/images/awaken-chiropractic-1st-slide.jpg"]}, {"id": "session-3", "number": 3, "title": "Emotional Changes in Pregnancy, Stages of Labour, Normal Birth", "page_url": "https://bhmconnectingpregnancy.weebly.com/session-1-3.html", "resources": [{"title": "ALPHA Self-Report Questionnaire (PDF)", "url": "http://womanabuse.webcanvas.ca/documents/alpha_self_report.pdf", "type": "pdf"}, {"title": "Emotional Changes in Pregnancy (Region of Waterloo PDF)", "url": "https://www.regionofwaterloo.ca/en/health-and-wellness/resources/Documents/EmotionalHealth_Pregnancy.pdf", "type": "pdf"}, {"title": "Depression & Pregnancy (PHAC)", "url": "http://www.phac-aspc.gc.ca/mh-sm/preg_dep-eng.php", "type": "guide"}, {"title": "Mental Health during Pregnancy", "url": "https://www.healthyparentshealthychildren.ca/im-pregnant/overview-of-pregnancy/mental-health/", "type": "guide"}, {"title": "Homebirth (Ontario Midwives)", "url": "https://www.ontariomidwives.ca/home-birth", "type": "external"}, {"title": "Water Birth (FAQs)", "url": "http://waterbirth.org/faqs/", "type": "external"}, {"title": "Hospital Birth (Ontario Midwives)", "url": "https://www.ontariomidwives.ca/why-give-birth-hospital", "type": "external"}, {"title": "Normal Childbirth", "url": "https://www.pregnancyinfo.ca/birth/delivery/normal-childbirth/", "type": "guide"}, {"title": "Stages of Labour (The Women's Hospital)", "url": "https://www.thewomens.org.au/health-information/pregnancy-and-birth/labour-birth/stages-of-labour/", "type": "guide"}, {"title": "Preparing for Labour (The Women's Hospital)", "url": "https://www.thewomens.org.au/health-information/pregnancy-and-birth/labour-birth/preparing-for-labour/", "type": "guide"}, {"title": "Birth with a Midwife (Ontario Midwives)", "url": "https://www.ontariomidwives.ca/giving-birth", "type": "external"}], "images": ["assets/images/normal-birth-sogc.jpg", "assets/images/6404154.jpg", "assets/images/download.jpg"]}, {"id": "session-4", "number": 4, "title": "Natural Pain Management in Labour", "page_url": "https://bhmconnectingpregnancy.weebly.com/session-4-5.html", "resources": [{"title": "What is a Doula? (DONA)", "url": "http://www.dona.org/mothers/index.php", "type": "external"}, {"title": "Doula FAQs (DONA)", "url": "http://www.dona.org/mothers/faqs_birth.php", "type": "external"}, {"title": "Perineal Massage (SCBP PDF)", "url": "https://scbp.ca/assets/documents/5_1_Perineal_massage_in_pregnancy.pdf", "type": "pdf"}, {"title": "Comfort in Labour (Simkin PDF)", "url": "https://www.kingstonmidwives.ca/userfiles/html_file/comfort-in-labor-simkin.pdf", "type": "pdf"}, {"title": "Birth Box & TENS Rental", "url": "https://balancingbirthbaby.com/shop/", "type": "external"}, {"title": "Natural Pain Management Kit", "url": "https://balancingbirthbaby.com/product/natural-pain-management/", "type": "external"}, {"title": "Birth Ball (YouTube)", "url": "https://www.youtube.com/watch?v=T8UKDfluF9E", "type": "video"}, {"title": "Support Techniques During Labour (YouTube)", "url": "https://www.youtube.com/watch?v=7v-iJKBR3LM", "type": "video"}, {"title": "Comfort Measures for Labour (YouTube)", "url": "https://www.youtube.com/watch?v=jw94EyVz3Rw", "type": "video"}, {"title": "Tips for Partners During Labour (NHS UK)", "url": "https://www.nhs.uk/pregnancy/labour-and-birth/what-happens/tips-for-your-birth-partner/#close", "type": "guide"}], "images": ["assets/images/birth-box.jpg", "assets/images/childbirth-pain-management-class-kitchener-1-1024x1024.png", "assets/images/early-labour.jpg", "assets/images/npm-shower.webp", "assets/images/lunge.jpg"]}, {"id": "session-5", "number": 5, "title": "Complications", "page_url": "https://bhmconnectingpregnancy.weebly.com/session-4-5.html", "resources": [{"title": "Caesarean Section", "url": "https://www.pregnancyinfo.ca/birth/delivery/caesarean-section/", "type": "guide"}, {"title": "VBAC (Ontario Midwives PDF)", "url": "https://www.ontariomidwives.ca/sites/default/files/Thinking-about-VBAC-English_1.pdf", "type": "pdf"}, {"title": "Vaginal Birth & Interventions at GRH", "url": "https://www.grhosp.on.ca/care/services-departments/childbirth/labour-and-delivery/vaginal-birth", "type": "external"}, {"title": "Breech Birth", "url": "https://www.pregnancyinfo.ca/birth/delivery/breech-childbirth/", "type": "guide"}, {"title": "Medical Pain Management Options", "url": "https://www.pregnancyinfo.ca/birth/labour/pain-management/pain-management-with-medications/", "type": "guide"}, {"title": "Induction (BabyCenter)", "url": "http://www.babycenter.ca/a173/induced-labour-101", "type": "guide"}, {"title": "If You Go Past 40 Weeks (Ontario Midwives PDF)", "url": "https://www.ontariomidwives.ca/sites/default/files/2017-10/In-due-time-pregnancy-beyond-40-English.pdf", "type": "pdf"}, {"title": "Group B Strep Screening", "url": "https://www.pregnancyinfo.ca/your-pregnancy/routine-tests/group-b-streptococcus-screening/", "type": "guide"}, {"title": "Assisted Delivery (Vacuum & Forceps)", "url": "https://www.pregnancyinfo.ca/birth/delivery/vacuum-and-forceps-assisted-birth/", "type": "guide"}, {"title": "Fetal Monitoring and Surveillance", "url": "https://www.pregnancyinfo.ca/birth/labour/fetal-monitoring-and-surveillance-intermittent-auscultation-efm/", "type": "guide"}, {"title": "If Your Water Breaks Before Labour (Ontario Midwives PDF)", "url": "https://www.ontariomidwives.ca/sites/default/files/2020-06/When-your-water-breaks-before-labour-English.pdf", "type": "pdf"}], "images": ["assets/images/brain.jpg", "assets/images/fetal-monitoring.jpg"]}, {"id": "session-6", "number": 6, "title": "Baby Care and Breastfeeding", "page_url": "https://bhmconnectingpregnancy.weebly.com/session-6-7.html", "resources": [{"title": "Breastfeeding Buddies", "url": "https://www.breastfeedingbuddies.com/", "type": "external"}, {"title": "Breastfeeding \u2014 Public Health Canada", "url": "http://www.phac-aspc.gc.ca/hp-ps/dca-dea/stages-etapes/childhood-enfance_0-2/nutrition/index-eng.php", "type": "guide"}, {"title": "10 Tips for Successful Breastfeeding", "url": "https://www.canada.ca/en/public-health/services/health-promotion/childhood-adolescence/stages-childhood/infancy-birth-two-years/breastfeeding-infant-nutrition/valuable-tips-successful-breastfeeding.html", "type": "guide"}, {"title": "10 Great Reasons to Breastfeed", "url": "https://www.canada.ca/en/public-health/services/health-promotion/childhood-adolescence/stages-childhood/infancy-birth-two-years/breastfeeding-infant-nutrition/10-great-reasons-breastfeed-your-baby.html", "type": "guide"}, {"title": "Breastfeeding Information Sheets (IBC)", "url": "http://ibconline.ca/information-sheets/", "type": "external"}, {"title": "International Breastfeeding Centre", "url": "http://ibconline.ca/", "type": "external"}, {"title": "Breastfeeding Videos (IBC)", "url": "http://ibconline.ca/breastfeeding-videos-2/", "type": "video"}, {"title": "What? Me Breastfeed? Workshops", "url": "https://www.breastfeedingbuddies.com/neve-home/about-services/me-breastfeed-workshop/", "type": "external"}, {"title": "Public Health Breastfeeding YouTube Playlist", "url": "https://www.youtube.com/playlist?list=PLownsWVDAO4x50Cm-X5EQ69L0elZ_UVXh", "type": "video"}, {"title": "New Dad Manual", "url": "https://newdadmanual.wordpress.com/", "type": "external"}, {"title": "Postpartum Planning (Balancing Birth Baby)", "url": "https://balancingbirthbaby.com/planning-post-partum/", "type": "guide"}, {"title": "Dad Central", "url": "http://www.dadcentral.ca/", "type": "external"}, {"title": "Infant Safety Workshop", "url": "https://balancingbirthbaby.com/education/infant-safety/", "type": "external"}, {"title": "Safe Sleep Guidelines (Canada PDF)", "url": "https://www.canada.ca/content/dam/phac-aspc/documents/services/health-promotion/childhood-adolescence/stages-childhood/infancy-birth-two-years/safe-sleep/safe-sleep-your-baby-brochure/safe-sleep.pdf", "type": "pdf"}], "images": ["assets/images/7417127.jpg", "assets/images/newborn-class-1024x683.png", "assets/images/dad.jpg", "assets/images/infant-safety-workshop-1024x576.png", "assets/images/safe-sleep.jpg"]}, {"id": "session-7", "number": 7, "title": "Postpartum Recovery and When to Worry", "page_url": "https://bhmconnectingpregnancy.weebly.com/session-6-7.html", "resources": [{"title": "Baby Blues (American Pregnancy)", "url": "http://americanpregnancy.org/first-year-of-life/baby-blues/", "type": "guide"}, {"title": "Postpartum Mood Disorders (Best Start)", "url": "https://en.beststart.org/topics-tools/early-childhood-development/post-partum-mood-disorders", "type": "guide"}, {"title": "GRH \u2014 Postpartum Recovery", "url": "https://www.grhosp.on.ca/care/services-departments/childbirth/after-giving-birth/postpartum-care", "type": "external"}, {"title": "Guide to Vaccinations (Canada)", "url": "https://www.canada.ca/en/public-health/services/publications/healthy-living/parent-guide-vaccination.html", "type": "guide"}, {"title": "First 6 Weeks with Your Baby (Ontario Midwives)", "url": "https://www.ontariomidwives.ca/first-six-weeks", "type": "guide"}, {"title": "After Giving Birth \u2014 GRH", "url": "https://www.grhosp.on.ca/care/services-departments/childbirth/after-giving-birth", "type": "external"}, {"title": "3rd Stage of Labour \u2014 Delivering the Placenta (NCT UK)", "url": "https://www.nct.org.uk/birth/third-stage-labour", "type": "guide"}, {"title": "Delayed Cord Clamping (YouTube)", "url": "https://www.youtube.com/watch?v=Cw53X98EvLQ", "type": "video"}, {"title": "Postpartum Care with a Midwife (YouTube)", "url": "https://youtu.be/3daz5baKGuo", "type": "video"}, {"title": "Normal Newborn Behaviour & Care (Ontario Midwives PDF)", "url": "https://www.ontariomidwives.ca/sites/default/files/Normal-newborn-behaviour-English.pdf", "type": "pdf"}, {"title": "Newborn Care \u2014 Video 1 (YouTube)", "url": "https://www.youtube.com/watch?v=NiUlNHGje6M", "type": "video"}, {"title": "Newborn Care \u2014 Video 2 (YouTube)", "url": "https://www.youtube.com/watch?v=aDNAUW52XIw", "type": "video"}, {"title": "Blood Sugar Testing in Newborns", "url": "http://www.caringforkids.cps.ca/handouts/blood_glucose_in_newborn_babies", "type": "guide"}, {"title": "Newborn Screening (Ontario)", "url": "http://www.newbornscreening.on.ca/bins/content_page.asp?cid=6&lang=1", "type": "external"}, {"title": "Jaundice in Newborns", "url": "http://www.caringforkids.cps.ca/handouts/jaundice_in_newborns", "type": "guide"}, {"title": "Apgar Score (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Apgar_score", "type": "external"}], "images": ["assets/images/baby-blues.jpg", "assets/images/grh-ppd.jpg", "assets/images/ppd.jpg", "assets/images/parentsguide-to-vaccination.jpg", "assets/images/dreamstime-l-41859947.jpg", "assets/images/3rd-stage-of-labour-delivering-placenta.jpg", "assets/images/delayed-cord-clamping-video.jpg", "assets/images/pp-care-with-mw-video.png", "assets/images/newborn-screen.jpg", "assets/images/apgar.jpg"]}, {"id": "grh-forms", "number": 0, "title": "GRH Pre-Admit Forms", "page_url": "https://bhmconnectingpregnancy.weebly.com/grh-pre-admit-forms.html", "resources": [{"title": "GRH Labour & Delivery Virtual Tour (YouTube)", "url": "https://youtu.be/Fxh1BT3AbFM", "type": "video"}, {"title": "Pre-Admit Registration Package (GRH PDF)", "url": "https://www.grhosp.on.ca/assets/documents/Registration-and-Referral-forms/PEM_20210728_ChildbirthPreRegistrationPackage.pdf", "type": "pdf"}], "images": ["assets/images/grh-logo.jpg"]}, {"id": "community", "number": 0, "title": "Community Resources & Newborn Info", "page_url": "https://bhmconnectingpregnancy.weebly.com/community-resources--newborn-info.html", "resources": [{"title": "Car Seat Safety \u2014 Parachute Canada", "url": "http://www.parachutecanada.org/injury-topics/topic/C2", "type": "external"}, {"title": "Child Car Seat Safety (Transport Canada)", "url": "https://www.tc.gc.ca/en/services/road/child-car-seat-safety.html", "type": "external"}, {"title": "Choose the Right Car Seat (MTO)", "url": "http://www.mto.gov.on.ca/english/safety/choose-car-seat.shtml", "type": "external"}, {"title": "Car Seat Safety (Caring for Kids)", "url": "http://www.caringforkids.cps.ca/handouts/car_seat_safety", "type": "guide"}, {"title": "Is Your Child Safe? (Health Canada)", "url": "https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/consumer-education/your-child-safe/is-your-child-safe.html", "type": "guide"}, {"title": "Play Time Safety (Health Canada)", "url": "https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/consumer-education/your-child-safe/play-time.html", "type": "guide"}, {"title": "Sleep Time Safety (Health Canada)", "url": "https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/consumer-education/your-child-safe/sleep-time.html", "type": "guide"}, {"title": "Foodland Ontario", "url": "https://www.ontario.ca/foodland/foodland-ontario", "type": "external"}, {"title": "Bailey's Local Foods", "url": "http://www.baileyslocalfoods.com/", "type": "external"}, {"title": "Encompass Health \u2014 Prenatal Yoga", "url": "https://www.encompasshealth.ca/upcoming-classes-events", "type": "external"}, {"title": "The Branches Yoga", "url": "https://thebranchesyoga.com/", "type": "external"}, {"title": "GRH Mental Health & Addiction Services", "url": "http://www.grhosp.on.ca/care/services-departments/mental-health-addiction/adult-outpatient-mental-health", "type": "external"}, {"title": "Bliss Therapy", "url": "http://bliss-therapy.org/", "type": "external"}, {"title": "Balancing Birth Baby \u2014 Prenatal Classes", "url": "https://balancingbirthbaby.com/", "type": "external"}, {"title": "Tummies to Toes \u2014 Prenatal Classes", "url": "http://tummiestotoes.ca/", "type": "external"}, {"title": "KW Pelvic Health", "url": "https://kwpelvichealth.com/", "type": "external"}, {"title": "KW Moms Club", "url": "https://kwmomsclub.com/", "type": "external"}, {"title": "Early Years Info", "url": "https://earlyyearsinfo.ca/", "type": "external"}], "images": []}];
+    var PLAYLIST = {"id": "PLU12x9ylK9N8gDp-LVlNnH-vcF1mAGwFF", "url": "https://www.youtube.com/playlist?list=PLU12x9ylK9N8gDp-LVlNnH-vcF1mAGwFF", "videos": [{"title": "Reflections of Motherhood", "url": "https://www.youtube.com/watch?v=taDqKWWPDAY", "channel": "Scott Stratten"}, {"title": "How to Properly Buckle Your Baby into the Car Seat", "url": "https://www.youtube.com/watch?v=REbyw_6mbnI", "channel": "readysetbabybook"}, {"title": "The Performance", "url": "https://www.youtube.com/watch?v=lZG0T7xHy6A", "channel": "FreedomForBirth"}]};
 
-    // ===== HELPERS =====
-    const TYPE_ICONS = {
-      pdf: '📄', video: '▶️', guide: '📖', external: '🔗',
-      tool: '🛠️', document: '📋', article: '📰'
-    };
-    const TYPE_LABELS = {
-      pdf: 'PDF', video: 'Video', guide: 'Guide', external: 'External',
-      tool: 'Tool', document: 'Document', article: 'Article'
-    };
-
-    function extractYouTubeId(url) {
-      if (!url) return null;
-      // Match various YouTube URL formats
-      const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([a-zA-Z0-9_-]{11})/);
-      return match ? match[1] : null;
+    function youtubeId(url) {
+      var m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^&?]+)/);
+      return m ? m[1] : null;
     }
 
-    function getSectionLabel(session) {
-      if (session.id === 'grh-forms') return 'GRH';
-      if (session.id === 'community') return 'CM';
-      return session.number;
+    function typeIcon(t) {
+      var icons = {pdf:'📄',video:'▶️',guide:'📖',external:'🔗',tool:'🛠️',document:'📝',article:'📰'};
+      return icons[t] || '📄';
     }
 
-    function getSectionNavLabel(session) {
-      if (session.id === 'grh-forms') return 'GRH Forms';
-      if (session.id === 'community') return 'Community';
-      return `Session ${session.number}`;
+    function typeLabel(t) {
+      var labels = {pdf:'PDF',video:'Video',guide:'Guide',external:'Website',tool:'Tool',document:'Document',article:'Article'};
+      return labels[t] || t;
     }
 
-    // ===== RENDER SIDEBAR =====
-    function renderSidebar() {
-      const nav = document.getElementById('sidebarNav');
-      nav.innerHTML = DATA.sessions.map(s => `
-        <li class="sidebar-nav-item">
-          <a href="#${s.id}" class="sidebar-nav-link" data-section="${s.id}">
-            <span class="sidebar-nav-number">${getSectionLabel(s)}</span>
-            <span>${getSectionNavLabel(s)}</span>
-          </a>
-        </li>
-      `).join('');
-    }
+    function renderSessions() {
+      var area = document.getElementById('contentArea');
+      var html = '';
 
-    // ===== RENDER SECTIONS =====
-    function renderSections() {
-      const container = document.getElementById('sectionsContainer');
-      container.innerHTML = DATA.sessions.map((session, idx) => {
-        const prevSession = idx > 0 ? DATA.sessions[idx - 1] : null;
-        const nextSession = idx < DATA.sessions.length - 1 ? DATA.sessions[idx + 1] : null;
+      SESSIONS.forEach(function(session, i) {
+        var prev = i > 0 ? SESSIONS[i-1] : null;
+        var next = i < SESSIONS.length - 1 ? SESSIONS[i+1] : null;
+        var numLabel = session.number ? session.number : (session.id === 'grh-forms' ? 'GRH' : 'CM');
 
-        // Separate video resources for embedding
-        const videoResources = session.resources.filter(r => r.type === 'video');
-        const otherResources = session.resources.filter(r => r.type !== 'video');
+        html += '<section id="' + session.id + '" class="section">';
+        html += '<div class="section-header"><span class="section-number">' + numLabel + '</span>';
+        html += '<h2 class="section-title">' + session.title + '</h2></div>';
 
-        // Render video embeds
-        let videoHTML = '';
-        videoResources.forEach(r => {
-          const ytId = extractYouTubeId(r.url);
-          if (ytId) {
-            videoHTML += `
-              <div class="video-embed">
-                <iframe src="https://www.youtube-nocookie.com/embed/${ytId}" 
-                        title="${r.title}" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen
-                        loading="lazy"></iframe>
-                <div class="video-embed-title">▶ ${r.title}</div>
-              </div>`;
-          } else {
-            videoHTML += `
-              <a href="${r.url}" target="_blank" rel="noopener" class="resource-card">
-                <div class="resource-icon video">▶️</div>
-                <div class="resource-body">
-                  <div class="resource-title">${r.title}</div>
-                  <span class="resource-badge video">Video</span>
-                </div>
-                <span class="resource-arrow">→</span>
-              </a>`;
-          }
-        });
-
-        // Render resource cards
-        const resourcesHTML = otherResources.map(r => `
-          <a href="${r.url}" target="_blank" rel="noopener" class="resource-card">
-            <div class="resource-icon ${r.type}">${TYPE_ICONS[r.type] || '📎'}</div>
-            <div class="resource-body">
-              <div class="resource-title">${r.title}</div>
-              <span class="resource-badge ${r.type}">${TYPE_LABELS[r.type] || r.type}</span>
-            </div>
-            <span class="resource-arrow">→</span>
-          </a>
-        `).join('');
-
-        // Render images
-        const imagesHTML = session.images && session.images.length > 0
-          ? `<div class="images-grid">${session.images.map(img => `<img src="${img}" alt="Session image" loading="lazy" referrerpolicy="no-referrer">`).join('')}</div>`
-          : '';
-
-        // Section number badge
-        const numClass = session.id === 'grh-forms' ? 'grh' : session.id === 'community' ? 'community' : '';
-        const numDisplay = session.id === 'grh-forms' ? 'GRH' : session.id === 'community' ? '★' : session.number;
-
-        return `
-          <section class="section" id="${session.id}">
-            <div class="section-header">
-              <div class="section-number ${numClass}">${numDisplay}</div>
-              <h2>${session.title}</h2>
-              <div class="section-meta">${session.resources.length} resource${session.resources.length !== 1 ? 's' : ''}${session.images.length > 0 ? ` · ${session.images.length} image${session.images.length !== 1 ? 's' : ''}` : ''}</div>
-            </div>
-            ${videoHTML ? `<div style="margin-bottom:16px">${videoHTML}</div>` : ''}
-            ${resourcesHTML ? `<div class="resources-grid">${resourcesHTML}</div>` : ''}
-            ${imagesHTML}
-            <div class="section-nav">
-              ${prevSection ? `<a href="#${prevSection.id}" class="section-nav-btn">← ${getSectionNavLabel(prevSection)}</a>` : '<span></span>'}
-              ${nextSection ? `<a href="#${nextSection.id}" class="section-nav-btn">${getSectionNavLabel(nextSection)} →</a>` : '<span></span>'}
-            </div>
-          </section>
-        `;
-      }).join('');
-    }
-
-    // ===== RENDER PLAYLIST =====
-    function renderPlaylist() {
-      const container = document.getElementById('playlistContainer');
-      const pl = DATA.youtube_playlist;
-      if (!pl || !pl.videos || pl.videos.length === 0) return;
-
-      container.innerHTML = `
-        <section class="playlist-section" id="youtube-playlist">
-          <div class="section-header">
-            <div class="section-number" style="background:#c92a2a">▶</div>
-            <h2>Recommended YouTube Videos</h2>
-            <div class="section-meta">${pl.videos.length} video${pl.videos.length !== 1 ? 's' : ''} from the program playlist</div>
-          </div>
-          ${pl.videos.map(v => {
-            const ytId = extractYouTubeId(v.url);
-            if (ytId) {
-              return `
-                <div class="video-embed" style="margin-bottom:12px">
-                  <iframe src="https://www.youtube-nocookie.com/embed/${ytId}" 
-                          title="${v.title}" 
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                          allowfullscreen
-                          loading="lazy"></iframe>
-                  <div class="video-embed-title">▶ ${v.title} — ${v.channel}</div>
-                </div>`;
-            }
-            return `
-              <a href="${v.url}" target="_blank" rel="noopener" class="resource-card">
-                <div class="resource-icon video">▶️</div>
-                <div class="resource-body">
-                  <div class="resource-title">${v.title}</div>
-                  <span class="resource-badge video">Video</span>
-                </div>
-                <span class="resource-arrow">→</span>
-              </a>`;
-          }).join('')}
-        </section>
-      `;
-    }
-
-    // ===== SEARCH =====
-    let fuse = null;
-    function initSearch() {
-      const searchDocs = [];
-      DATA.sessions.forEach(s => {
-        s.resources.forEach(r => {
-          searchDocs.push({
-            title: r.title,
-            type: r.type,
-            url: r.url,
-            sectionId: s.id,
-            sectionTitle: s.title
+        if (session.images && session.images.length > 0) {
+          html += '<div class="section-images">';
+          session.images.forEach(function(img) {
+            html += '<img src="' + img + '" alt="" loading="lazy" class="section-img">';
           });
+          html += '</div>';
+        }
+
+        html += '<div class="resource-grid">';
+        session.resources.forEach(function(res) {
+          var badge = '<span class="badge badge-' + res.type + '">' + typeIcon(res.type) + ' ' + typeLabel(res.type) + '</span>';
+          var isVideo = res.type === 'video';
+          var ytId = isVideo ? youtubeId(res.url) : null;
+
+          html += '<div class="resource-card" data-search="' + res.title.toLowerCase() + ' ' + res.type + '">';
+          if (isVideo && ytId) {
+            html += '<div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/' + ytId + '" title="' + res.title + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
+          }
+          html += '<div class="resource-body"><div class="resource-top">' + badge + '</div>';
+          html += '<h3 class="resource-title"><a href="' + res.url + '" target="_blank" rel="noopener">' + res.title + '</a></h3>';
+          var linkText = res.type === 'pdf' ? 'Download PDF' : res.type === 'video' ? 'Watch on YouTube' : 'Visit Resource';
+          html += '<a href="' + res.url + '" target="_blank" rel="noopener" class="resource-link">' + linkText + ' →</a>';
+          html += '</div></div>';
+        });
+        html += '</div>';
+
+        html += '<nav class="section-nav">';
+        if (prev) {
+          html += '<a href="#' + prev.id + '" class="nav-prev">← ' + prev.title + '</a>';
+        } else {
+          html += '<span class="nav-disabled"></span>';
+        }
+        if (next) {
+          html += '<a href="#' + next.id + '" class="nav-next">' + next.title + ' →</a>';
+        } else {
+          html += '<span class="nav-disabled"></span>';
+        }
+        html += '</nav></section>';
+      });
+
+      // Playlist section
+      html += '<section id="playlist" class="section">';
+      html += '<div class="section-header"><span class="section-number">▶️</span>';
+      html += '<h2 class="section-title">Recommended Videos (Blue Heron Midwives Playlist)</h2></div>';
+      html += '<div class="resource-grid">';
+      PLAYLIST.videos.forEach(function(v) {
+        var ytId = youtubeId(v.url);
+        if (ytId) {
+          html += '<div class="resource-card">';
+          html += '<div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/' + ytId + '" title="' + v.title + '" frameborder="0" allowfullscreen loading="lazy"></iframe></div>';
+          html += '<div class="resource-body"><span class="badge badge-video">▶️ Video</span>';
+          html += '<h3 class="resource-title">' + v.title + '</h3>';
+          html += '<p class="resource-meta">by ' + v.channel + '</p>';
+          html += '<a href="' + v.url + '" target="_blank" rel="noopener" class="resource-link">Watch on YouTube →</a>';
+          html += '</div></div>';
+        }
+      });
+      html += '</div></section>';
+
+      area.innerHTML = html;
+    }
+
+    function renderSidebar() {
+      var nav = document.getElementById('sidebarNav');
+      var html = '';
+      SESSIONS.forEach(function(s) {
+        var badge, label;
+        if (s.number) {
+          badge = s.number;
+          label = 'Session ' + s.number;
+        } else if (s.id === 'grh-forms') {
+          badge = 'GRH';
+          label = s.title;
+        } else {
+          badge = 'CM';
+          label = s.title;
+        }
+        html += '<li><a href="#' + s.id + '" class="sidebar-nav-link" data-section="' + s.id + '"><span class="nav-badge">' + badge + '</span> ' + label + '</a></li>';
+      });
+      html += '<li><a href="#playlist" class="sidebar-nav-link" data-section="playlist"><span class="nav-badge">▶️</span> Videos</a></li>';
+      nav.innerHTML = html;
+    }
+
+    function initSearch() {
+      var allItems = [];
+      SESSIONS.forEach(function(s) {
+        s.resources.forEach(function(r) {
+          allItems.push({title: r.title, type: r.type, url: r.url, sectionId: s.id, sectionTitle: s.title});
         });
       });
-      fuse = new Fuse(searchDocs, {
-        keys: ['title', 'type', 'sectionTitle'],
-        threshold: 0.35,
-        includeScore: true
+
+      var fuse = new Fuse(allItems, {keys: ['title', 'type'], threshold: 0.35, ignoreLocation: true});
+      var input = document.getElementById('searchInput');
+      var debounceTimer;
+
+      input.addEventListener('input', function() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function() {
+          var query = input.value.trim();
+          if (!query) {
+            document.querySelectorAll('.section').forEach(function(s) { s.style.display = ''; });
+            document.querySelectorAll('.resource-card').forEach(function(c) { c.style.display = ''; });
+            return;
+          }
+          var results = fuse.search(query);
+          var matchedIds = new Set(results.map(function(r) { return r.item.sectionId + '::' + r.item.title; }));
+          document.querySelectorAll('.section').forEach(function(section) {
+            var sectionHasMatch = false;
+            section.querySelectorAll('.resource-card').forEach(function(card) {
+              var title = card.querySelector('.resource-title a') ? card.querySelector('.resource-title a').textContent : '';
+              var key = section.id + '::' + title;
+              if (matchedIds.has(key)) { card.style.display = ''; sectionHasMatch = true; }
+              else { card.style.display = 'none'; }
+            });
+            section.style.display = sectionHasMatch ? '' : 'none';
+          });
+        }, 200);
       });
     }
 
-    function handleSearch(query) {
-      const resultsContainer = document.getElementById('searchResults');
-      if (!query || query.trim().length < 2) {
-        resultsContainer.innerHTML = '';
-        // Show all sections
-        document.querySelectorAll('.section').forEach(s => s.style.display = '');
-        const playlist = document.getElementById('youtube-playlist');
-        if (playlist) playlist.style.display = '';
-        return;
-      }
-
-      const results = fuse.search(query);
-      
-      // Hide sections not in results
-      const matchedSectionIds = new Set(results.map(r => r.item.sectionId));
-      document.querySelectorAll('.section').forEach(s => {
-        s.style.display = matchedSectionIds.has(s.id) ? '' : 'none';
-      });
-      const playlist = document.getElementById('youtube-playlist');
-      if (playlist) playlist.style.display = 'none';
-
-      if (results.length === 0) {
-        resultsContainer.innerHTML = `
-          <div class="no-results">
-            <div class="no-results-icon">🔍</div>
-            <div class="no-results-text">No resources found for "${query}"</div>
-          </div>`;
-        return;
-      }
-
-      resultsContainer.innerHTML = `
-        <ul class="search-results-list">
-          ${results.slice(0, 20).map(r => `
-            <li>
-              <a href="#${r.item.sectionId}" class="search-result-item" onclick="clearSearch()">
-                <div class="resource-icon ${r.item.type}">${TYPE_ICONS[r.item.type] || '📎'}</div>
-                <div>
-                  <div class="search-result-title">${r.item.title}</div>
-                  <div class="search-result-section">${r.item.sectionTitle} · <span class="resource-badge ${r.item.type}">${TYPE_LABELS[r.item.type] || r.item.type}</span></div>
-                </div>
-              </a>
-            </li>
-          `).join('')}
-        </ul>`;
-    }
-
-    function clearSearch() {
-      document.getElementById('searchInput').value = '';
-      document.getElementById('searchResults').innerHTML = '';
-      document.querySelectorAll('.section').forEach(s => s.style.display = '');
-      const playlist = document.getElementById('youtube-playlist');
-      if (playlist) playlist.style.display = '';
-    }
-
-    // ===== THEME =====
     function getPreferredTheme() {
-      const stored = localStorage.getItem('bhm-theme');
+      var stored = localStorage.getItem('bhm-theme');
       if (stored) return stored;
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
@@ -1232,141 +913,79 @@
     }
 
     function updateThemeButton(theme) {
-      const icon = document.getElementById('themeIcon');
-      const label = document.getElementById('themeLabel');
-      if (theme === 'dark') {
-        icon.textContent = '☀️';
-        label.textContent = 'Light Mode';
-      } else {
-        icon.textContent = '🌙';
-        label.textContent = 'Dark Mode';
-      }
+      var icon = document.getElementById('themeIcon');
+      var label = document.getElementById('themeLabel');
+      if (theme === 'dark') { icon.textContent = '☀️'; label.textContent = 'Light Mode'; }
+      else { icon.textContent = '🌙'; label.textContent = 'Dark Mode'; }
     }
 
     function toggleTheme() {
-      const current = document.documentElement.getAttribute('data-theme');
+      var current = document.documentElement.getAttribute('data-theme');
       setTheme(current === 'dark' ? 'light' : 'dark');
     }
 
-    // ===== INTERSECTION OBSERVER =====
     function initObserver() {
-      const sections = document.querySelectorAll('.section');
-      const navLinks = document.querySelectorAll('.sidebar-nav-link');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+      var sections = document.querySelectorAll('.section');
+      var navLinks = document.querySelectorAll('.sidebar-nav-link');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
           if (entry.isIntersecting) {
-            navLinks.forEach(link => link.classList.remove('active'));
-            const activeLink = document.querySelector(`.sidebar-nav-link[data-section="${entry.target.id}"]`);
+            navLinks.forEach(function(link) { link.classList.remove('active'); });
+            var activeLink = document.querySelector('.sidebar-nav-link[data-section="' + entry.target.id + '"]');
             if (activeLink) activeLink.classList.add('active');
           }
         });
-      }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
-
-      sections.forEach(section => observer.observe(section));
+      }, {rootMargin: '-80px 0px -60% 0px', threshold: 0});
+      sections.forEach(function(section) { observer.observe(section); });
     }
 
-    // ===== MOBILE MENU =====
     function initMobileMenu() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('mobileOverlay');
-      const hamburger = document.getElementById('hamburgerBtn');
-
-      function openMenu() {
-        sidebar.classList.add('open');
-        overlay.classList.add('visible');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeMenu() {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('visible');
-        document.body.style.overflow = '';
-      }
-
-      hamburger.addEventListener('click', () => {
-        sidebar.classList.contains('open') ? closeMenu() : openMenu();
-      });
-
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('mobileOverlay');
+      var hamburger = document.getElementById('hamburgerBtn');
+      function openMenu() { sidebar.classList.add('open'); overlay.classList.add('visible'); document.body.style.overflow = 'hidden'; }
+      function closeMenu() { sidebar.classList.remove('open'); overlay.classList.remove('visible'); document.body.style.overflow = ''; }
+      hamburger.addEventListener('click', function() { sidebar.classList.contains('open') ? closeMenu() : openMenu(); });
       overlay.addEventListener('click', closeMenu);
-
-      // Close menu when clicking nav links on mobile
-      document.querySelectorAll('.sidebar-nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-          if (window.innerWidth <= 768) closeMenu();
-        });
+      document.querySelectorAll('.sidebar-nav-link').forEach(function(link) {
+        link.addEventListener('click', function() { if (window.innerWidth <= 768) closeMenu(); });
       });
     }
 
-    // ===== BACK TO TOP =====
     function initBackToTop() {
-      const btn = document.getElementById('backToTop');
-      window.addEventListener('scroll', () => {
-        btn.classList.toggle('visible', window.scrollY > 400);
-      });
-      btn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
+      var btn = document.getElementById('backToTop');
+      window.addEventListener('scroll', function() { btn.classList.toggle('visible', window.scrollY > 400); });
+      btn.addEventListener('click', function() { window.scrollTo({top: 0, behavior: 'smooth'}); });
     }
 
-    // ===== SMOOTH SCROLL FOR ANCHORS =====
     function initSmoothScroll() {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
         anchor.addEventListener('click', function(e) {
-          const targetId = this.getAttribute('href');
+          var targetId = this.getAttribute('href');
           if (targetId === '#') return;
-          const target = document.querySelector(targetId);
-          if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth' });
-            // Update URL without scroll jump
-            history.pushState(null, '', targetId);
-          }
+          var target = document.querySelector(targetId);
+          if (target) { e.preventDefault(); target.scrollIntoView({behavior: 'smooth', block: 'start'}); history.pushState(null, '', targetId); }
         });
       });
     }
 
-    // ===== INIT =====
-    document.addEventListener('DOMContentLoaded', () => {
-      // Set theme
+    document.addEventListener('DOMContentLoaded', function() {
       setTheme(getPreferredTheme());
-
-      // Render
+      renderSessions();
       renderSidebar();
-      renderSections();
-      renderPlaylist();
-
-      // Initialize features
       initSearch();
       initObserver();
       initMobileMenu();
       initBackToTop();
       initSmoothScroll();
-
-      // Search input
-      let searchTimeout;
-      document.getElementById('searchInput').addEventListener('input', (e) => {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => handleSearch(e.target.value), 200);
-      });
-
-      // Theme toggle
-      document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-
-      // Listen for system theme changes
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('bhm-theme')) {
-          setTheme(e.matches ? 'dark' : 'light');
-        }
-      });
-
-      // Handle hash on load
       if (window.location.hash) {
-        const target = document.querySelector(window.location.hash);
-        if (target) {
-          setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 100);
-        }
+        var target = document.querySelector(window.location.hash);
+        if (target) setTimeout(function() { target.scrollIntoView({behavior: 'smooth'}); }, 100);
       }
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      if (!localStorage.getItem('bhm-theme')) setTheme(e.matches ? 'dark' : 'light');
     });
   </script>
 </body>
